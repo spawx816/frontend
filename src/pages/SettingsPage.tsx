@@ -22,6 +22,17 @@ export function SettingsPage() {
     const [isSaving, setIsSaving] = useState(false);
     const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
 
+    // New User Modal State
+    const [isAddUserModalOpen, setIsAddUserModalOpen] = useState(false);
+    const [isCreatingUser, setIsCreatingUser] = useState(false);
+    const [newUserForm, setNewUserForm] = useState({
+        first_name: '',
+        last_name: '',
+        email: '',
+        password: '',
+        roleId: ''
+    });
+
     useEffect(() => {
         fetchData();
     }, []);
@@ -113,6 +124,33 @@ export function SettingsPage() {
             fetchData();
         } catch (error) {
             setMessage({ type: 'error', text: 'Error al actualizar usuario' });
+        }
+    };
+
+    const handleCreateUser = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsCreatingUser(true);
+        setMessage(null);
+
+        try {
+            await apiClient.post('/auth/register', {
+                first_name: newUserForm.first_name,
+                last_name: newUserForm.last_name,
+                email: newUserForm.email,
+                password: newUserForm.password,
+                role: newUserForm.roleId, // The auth service expects 'role'
+                organizationId: users[0]?.organization_id // Assuming organization isolation or we fetch from context
+            });
+
+            setMessage({ type: 'success', text: 'Usuario creado exitosamente' });
+            setIsAddUserModalOpen(false);
+            setNewUserForm({ first_name: '', last_name: '', email: '', password: '', roleId: '' });
+            fetchData();
+        } catch (error) {
+            console.error('Error creating user:', error);
+            setMessage({ type: 'error', text: 'Error al crear el usuario. Verifique los datos o si el correo ya existe.' });
+        } finally {
+            setIsCreatingUser(false);
         }
     };
 
@@ -307,7 +345,16 @@ export function SettingsPage() {
                                     <Shield className="w-6 h-6 text-indigo-500" />
                                     <h2 className="text-xl font-black text-white">Gestión de Usuarios</h2>
                                 </div>
-                                <span className="text-[10px] font-black px-3 py-1 bg-indigo-500/10 text-indigo-400 rounded-full border border-indigo-500/20">{users.length} USUARIOS</span>
+                                <div className="flex items-center space-x-4">
+                                    <span className="text-[10px] font-black px-3 py-1 bg-indigo-500/10 text-indigo-400 rounded-full border border-indigo-500/20">{users.length} USUARIOS</span>
+                                    <button
+                                        onClick={() => setIsAddUserModalOpen(true)}
+                                        className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-xl text-sm font-bold transition-all"
+                                    >
+                                        <Users className="w-4 h-4" />
+                                        <span>Añadir Usuario</span>
+                                    </button>
+                                </div>
                             </div>
 
                             <table className="w-full text-left">
@@ -361,6 +408,104 @@ export function SettingsPage() {
                     )}
                 </main>
             </div>
+
+            {/* Modal de Crear Usuario */}
+            {isAddUserModalOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#020617]/80 backdrop-blur-sm animate-in fade-in duration-200">
+                    <div className="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-md overflow-hidden shadow-2xl">
+                        <div className="p-6 border-b border-slate-800 flex items-center justify-between">
+                            <h3 className="text-xl font-black text-white">Añadir Nuevo Usuario</h3>
+                            <button
+                                onClick={() => setIsAddUserModalOpen(false)}
+                                className="text-slate-400 hover:text-white transition-colors"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+                            </button>
+                        </div>
+                        <div className="p-6">
+                            <form onSubmit={handleCreateUser} className="space-y-4">
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">Nombre</label>
+                                        <input
+                                            type="text"
+                                            required
+                                            value={newUserForm.first_name}
+                                            onChange={(e) => setNewUserForm({ ...newUserForm, first_name: e.target.value })}
+                                            className="w-full bg-[#020617] border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">Apellido</label>
+                                        <input
+                                            type="text"
+                                            required
+                                            value={newUserForm.last_name}
+                                            onChange={(e) => setNewUserForm({ ...newUserForm, last_name: e.target.value })}
+                                            className="w-full bg-[#020617] border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">Correo Electrónico</label>
+                                    <input
+                                        type="email"
+                                        required
+                                        value={newUserForm.email}
+                                        onChange={(e) => setNewUserForm({ ...newUserForm, email: e.target.value })}
+                                        className="w-full bg-[#020617] border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">Contraseña Temporal</label>
+                                    <input
+                                        type="password"
+                                        required
+                                        minLength={6}
+                                        value={newUserForm.password}
+                                        onChange={(e) => setNewUserForm({ ...newUserForm, password: e.target.value })}
+                                        className="w-full bg-[#020617] border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">Rol Asignado</label>
+                                    <select
+                                        required
+                                        value={newUserForm.roleId}
+                                        onChange={(e) => setNewUserForm({ ...newUserForm, roleId: e.target.value })}
+                                        className="w-full bg-[#020617] border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium appearance-none"
+                                    >
+                                        <option value="">Seleccione un rol...</option>
+                                        {roles.map(r => (
+                                            <option key={r.id} value={r.name}>{r.display_name}</option>
+                                        ))}
+                                    </select>
+                                </div>
+
+                                <div className="pt-4 flex justify-end space-x-3">
+                                    <button
+                                        type="button"
+                                        onClick={() => setIsAddUserModalOpen(false)}
+                                        className="px-6 py-3 rounded-xl font-bold text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+                                    >
+                                        Cancelar
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        disabled={isCreatingUser || !newUserForm.roleId}
+                                        className={`px-6 py-3 bg-blue-600 text-white font-bold rounded-xl shadow-lg shadow-blue-900/20 transition-all active:scale-[0.98] flex items-center space-x-2 ${isCreatingUser || !newUserForm.roleId ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-500'}`}
+                                    >
+                                        <span>{isCreatingUser ? 'Creando...' : 'Crear Usuario'}</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

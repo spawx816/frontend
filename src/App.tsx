@@ -16,7 +16,7 @@ import { usePortalAuth, PortalProvider } from './hooks/usePortal.tsx';
 import { useAuth, AuthProvider } from './hooks/useAuth.tsx';
 import { InstructorMain } from './pages/InstructorMain.tsx';
 import { Login } from './pages/Login.tsx';
-import { Layout, Users, GraduationCap, Menu, X, Receipt, BarChart3, Link, Wallet, MessageSquare, Package, Settings as SettingsIcon } from 'lucide-react';
+import { Layout, Users, GraduationCap, Menu, X, Receipt, BarChart3, Link, Wallet, MessageSquare, Package, Settings as SettingsIcon, LogOut } from 'lucide-react';
 import { InstructorPayrollManager } from './components/academic/InstructorPayrollManager.tsx';
 import { ChatInbox } from './pages/ChatInbox.tsx';
 import { SettingsPage } from './pages/SettingsPage.tsx';
@@ -30,8 +30,16 @@ function DashboardLayout() {
   const [selectedStudentId, setSelectedStudentId] = useState<string | null>(null);
   const [selectedProgram, setSelectedProgram] = useState<AcademicProgram | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user, logout } = useAuth(); // ADDED useAuth to get the current user
 
-  const navItems = [
+  type NavItemType = {
+    id: string;
+    label: string;
+    icon: React.ElementType;
+    adminOnly?: boolean;
+  };
+
+  const navItems: NavItemType[] = [
     { id: 'dashboard', label: 'Dashboard', icon: BarChart3 },
     { id: 'kanban', label: 'Admisiones', icon: Layout },
     { id: 'chat', label: 'Mensajería', icon: MessageSquare },
@@ -39,9 +47,9 @@ function DashboardLayout() {
     { id: 'academic', label: 'Académico', icon: GraduationCap },
     { id: 'billing', label: 'Facturación', icon: Receipt },
     { id: 'inventory', label: 'Inventario', icon: Package },
-    { id: 'expenses', label: 'Gastos', icon: Wallet },
+    { id: 'expenses', label: 'Gastos', icon: Wallet, adminOnly: true },
     { id: 'integrations', label: 'Integraciones', icon: Link },
-    { id: 'settings', label: 'Configuración', icon: SettingsIcon },
+    { id: 'settings', label: 'Configuración', icon: SettingsIcon, adminOnly: true },
   ];
 
 
@@ -168,27 +176,29 @@ function DashboardLayout() {
 
         <nav className="flex-1 px-4 space-y-1 mt-4">
           <p className="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Principal</p>
-          {navItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => {
-                setActiveTab(item.id as any);
-                setIsMobileMenuOpen(false);
-              }}
-              className={`w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl transition-all duration-200 group ${activeTab === item.id
-                ? 'bg-blue-600/10 text-blue-400 shadow-sm'
-                : 'text-slate-400 hover:bg-slate-800/50 hover:text-slate-200'
-                }`}
-            >
-              <item.icon className={`w-5 h-5 transition-colors ${activeTab === item.id ? 'text-blue-400' : 'text-slate-500 group-hover:text-slate-300'}`} />
-              <span className="text-sm font-bold tracking-tight">{item.label}</span>
-              {item.id === 'chat' && (
-                <span className="ml-auto w-5 h-5 bg-red-500 text-white text-[10px] font-black rounded-full flex items-center justify-center animate-bounce shadow-lg shadow-red-900/20">
-                  3
-                </span>
-              )}
-            </button>
-          ))}
+          {navItems
+            .filter(item => !item.adminOnly || user?.role === 'admin') // Filter based on adminOnly property
+            .map((item) => (
+              <button
+                key={item.id}
+                onClick={() => {
+                  setActiveTab(item.id as any);
+                  setIsMobileMenuOpen(false);
+                }}
+                className={`w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl transition-all duration-200 group ${activeTab === item.id
+                  ? 'bg-blue-600/10 text-blue-400 shadow-sm'
+                  : 'text-slate-400 hover:bg-slate-800/50 hover:text-slate-200'
+                  }`}
+              >
+                <item.icon className={`w-5 h-5 transition-colors ${activeTab === item.id ? 'text-blue-400' : 'text-slate-500 group-hover:text-slate-300'}`} />
+                <span className="text-sm font-bold tracking-tight">{item.label}</span>
+                {item.id === 'chat' && (
+                  <span className="ml-auto w-5 h-5 bg-red-500 text-white text-[10px] font-black rounded-full flex items-center justify-center animate-bounce shadow-lg shadow-red-900/20">
+                    3
+                  </span>
+                )}
+              </button>
+            ))}
 
           <p className="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2 mt-6">Administración</p>
           <button
@@ -220,13 +230,26 @@ function DashboardLayout() {
           </a>
         </div>
 
-        <div className="p-4 mt-auto">
+        <div className="p-4 mt-auto space-y-4">
           <div className="p-4 bg-slate-900/50 rounded-2xl border border-slate-800">
             <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Plan</p>
             <p className="text-xs font-bold text-white mb-3">PENTAFASE PRO</p>
             <div className="h-1 w-full bg-slate-800 rounded-full overflow-hidden">
               <div className="h-full w-[85%] bg-blue-600" />
             </div>
+          </div>
+
+          <div className="flex items-center space-x-3 p-3 bg-slate-900/50 rounded-2xl border border-slate-800">
+            <div className="w-10 h-10 bg-indigo-600 rounded-full flex shrink-0 items-center justify-center text-white font-bold shadow-inner uppercase">
+              {(user?.first_name || user?.firstName)?.charAt(0) || 'U'}
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-bold text-white truncate">{user?.first_name || user?.firstName} {user?.last_name || user?.lastName}</p>
+              <p className="text-[10px] text-slate-400 truncate capitalize">{user?.role}</p>
+            </div>
+            <button onClick={logout} className="p-2 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 rounded-xl transition-all" title="Cerrar Sesión">
+              <LogOut className="w-5 h-5" />
+            </button>
           </div>
         </div>
       </aside>
@@ -257,21 +280,38 @@ function DashboardLayout() {
               <button onClick={() => setIsMobileMenuOpen(false)} className="p-2 hover:bg-slate-800 rounded-lg"><X /></button>
             </div>
             <nav className="space-y-4">
-              {navItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => {
-                    setActiveTab(item.id as any);
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className={`w-full flex items-center space-x-4 p-4 rounded-2xl text-lg font-bold transition-all ${activeTab === item.id ? 'bg-blue-600 text-white shadow-xl shadow-blue-600/20' : 'text-slate-400'
-                    }`}
-                >
-                  <item.icon className="w-6 h-6" />
-                  <span>{item.label}</span>
-                </button>
-              ))}
+              {navItems
+                .filter(item => !item.adminOnly || user?.role === 'admin')
+                .map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => {
+                      setActiveTab(item.id as any);
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className={`w-full flex items-center space-x-4 p-4 rounded-2xl text-lg font-bold transition-all ${activeTab === item.id ? 'bg-blue-600 text-white shadow-xl shadow-blue-600/20' : 'text-slate-400'
+                      }`}
+                  >
+                    <item.icon className="w-6 h-6" />
+                    <span>{item.label}</span>
+                  </button>
+                ))}
             </nav>
+            <div className="mt-8 pt-8 border-t border-slate-800">
+              <div className="flex items-center space-x-4 mb-6">
+                <div className="w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-lg uppercase">
+                  {(user?.first_name || user?.firstName)?.charAt(0) || 'U'}
+                </div>
+                <div>
+                  <p className="text-lg font-bold text-white">{user?.first_name || user?.firstName} {user?.last_name || user?.lastName}</p>
+                  <p className="text-sm text-slate-400 capitalize">{user?.role}</p>
+                </div>
+              </div>
+              <button onClick={logout} className="w-full flex items-center space-x-4 p-4 rounded-2xl text-lg font-bold text-rose-400 bg-rose-500/10 hover:bg-rose-500/20 transition-all">
+                <LogOut className="w-6 h-6" />
+                <span>Cerrar Sesión</span>
+              </button>
+            </div>
           </div>
         )}
       </main>

@@ -9,11 +9,24 @@ const apiClient = axios.create({
 
 // Add a request interceptor to include the JWT token (to be implemented)
 apiClient.interceptors.request.use((config) => {
-    const token = localStorage.getItem('access_token');
+    const token = localStorage.getItem('crm_token');
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
 });
+
+// Add a response interceptor to handle 401 Unauthorized globally
+apiClient.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if (error.response?.status === 401) {
+            localStorage.removeItem('crm_token');
+            localStorage.removeItem('crm_user');
+            window.location.href = '/login';
+        }
+        return Promise.reject(error);
+    }
+);
 
 export default apiClient;
