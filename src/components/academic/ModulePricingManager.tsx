@@ -103,7 +103,7 @@ export function ModulePricingManager({ programId }: { programId: string }) {
 
                 <h3 className="text-sm font-black text-slate-500 uppercase tracking-widest mb-6">Precios de Módulos</h3>
                 <div className="grid grid-cols-1 gap-4">
-                    {modules?.map((module: any) => (
+                    {Array.isArray(modules) && modules.map((module: any) => (
                         <div
                             key={module.id}
                             onClick={() => setSelectedModuleId(module.id)}
@@ -168,7 +168,7 @@ export function ModulePricingManager({ programId }: { programId: string }) {
                                 className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-4 py-3 text-white text-xs font-bold outline-none appearance-none"
                             >
                                 <option value="">Vincular artículo...</option>
-                                {billingItems?.map((item: any) => (
+                                {Array.isArray(billingItems) && billingItems.map((item: any) => (
                                     <option key={item.id} value={item.id}>{item.name} (${item.price})</option>
                                 ))}
                             </select>

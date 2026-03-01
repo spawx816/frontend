@@ -54,7 +54,7 @@ export function CohortModuleManager({ cohortId, programId, onBack }: CohortModul
                 <div className="space-y-4">
                     <h3 className="text-[10px] font-black uppercase text-slate-500 tracking-widest pl-4">Asignaciones Actuales</h3>
                     <div className="bg-slate-900/30 border border-slate-800 rounded-[2.5rem] overflow-hidden divide-y divide-slate-800/50">
-                        {programModules?.map((m: any) => {
+                        {Array.isArray(programModules) && programModules.map((m: any) => {
                             const assignment = cohortAssignments?.find((a: any) => a.module_id === m.id);
                             return (
                                 <div key={m.id} className="p-6 flex items-center justify-between hover:bg-slate-800/20 transition-all">
@@ -105,7 +105,7 @@ export function CohortModuleManager({ cohortId, programId, onBack }: CohortModul
                                         className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:border-indigo-500 outline-none"
                                     >
                                         <option value="">Buscar en la nómina...</option>
-                                        {instructors?.map((inst: any) => (
+                                        {Array.isArray(instructors) && instructors.map((inst: any) => (
                                             <option key={inst.id} value={inst.id}>
                                                 {inst.first_name} {inst.last_name}
                                             </option>

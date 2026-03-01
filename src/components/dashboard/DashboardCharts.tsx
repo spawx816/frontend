@@ -23,7 +23,7 @@ export function DashboardCharts({ leadsByStage, studentsByProgram }: ChartsProps
                     Embudo de Ventas (Leads por Etapa)
                 </h3>
                 <div className="w-full h-[300px]">
-                    <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
+                    <ResponsiveContainer width="100%" height={300}>
                         <BarChart data={stageData}>
                             <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
                             <XAxis dataKey="name" fontSize={10} axisLine={false} tickLine={false} tick={{ fill: '#94a3b8' }} />
@@ -45,7 +45,7 @@ export function DashboardCharts({ leadsByStage, studentsByProgram }: ChartsProps
                     Distribución de Alumnos por Programa
                 </h3>
                 <div className="w-full h-[300px]">
-                    <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
+                    <ResponsiveContainer width="100%" height={300}>
                         <PieChart>
                             <Pie
                                 data={programData}

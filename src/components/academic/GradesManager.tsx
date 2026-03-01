@@ -117,7 +117,7 @@ export function GradesManager({ cohortId, programId, onBack, initialModuleId }: 
                         className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors"
                     >
                         <option value="">Selecciona un módulo...</option>
-                        {modules?.map((m: any) => (
+                        {Array.isArray(modules) && modules.map((m: any) => (
                             <option key={m.module_id} value={m.module_id}>
                                 {m.module_name}
                             </option>
@@ -137,7 +137,7 @@ export function GradesManager({ cohortId, programId, onBack, initialModuleId }: 
                             className="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors disabled:opacity-50"
                         >
                             <option value="">Selecciona evaluación...</option>
-                            {gradeTypes?.map((gt: any) => (
+                            {Array.isArray(gradeTypes) && gradeTypes.map((gt: any) => (
                                 <option key={gt.id} value={gt.id}>{gt.name}</option>
                             ))}
                         </select>
@@ -186,7 +186,7 @@ export function GradesManager({ cohortId, programId, onBack, initialModuleId }: 
                     </div>
 
                     <div className="divide-y divide-slate-800/50 max-h-[500px] overflow-y-auto">
-                        {students?.map((student: any) => (
+                        {Array.isArray(students) && students.map((student: any) => (
                             <div key={student.id} className="p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 hover:bg-slate-800/20 transition-all">
                                 <div className="flex items-center space-x-4">
                                     <div className="w-10 h-10 rounded-full bg-gradient-to-br from-slate-700 to-slate-800 flex items-center justify-center border border-slate-600">

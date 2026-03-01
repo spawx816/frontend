@@ -104,7 +104,7 @@ export function ExpenseManager() {
                             className="bg-slate-950 border border-slate-800 text-white rounded-xl px-4 py-3 text-xs font-bold outline-none flex-1 focus:ring-1 focus:ring-rose-500/50 transition-all"
                         >
                             <option value="">Todas las Categorías</option>
-                            {categories?.map((cat: any) => (
+                            {Array.isArray(categories) && categories.map((cat: any) => (
                                 <option key={cat.id} value={cat.id}>{cat.name}</option>
                             ))}
                         </select>
@@ -159,7 +159,7 @@ export function ExpenseManager() {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-800/50">
-                            {expenses?.map((expense: any) => (
+                            {Array.isArray(expenses) && expenses.map((expense: any) => (
                                 <tr key={expense.id} className="group hover:bg-white/[0.02] transition-colors">
                                     <td className="p-6">
                                         <div className="flex items-center space-x-3">
@@ -245,7 +245,7 @@ export function ExpenseManager() {
                                         className="w-full bg-slate-950 border border-slate-800 text-white rounded-2xl px-5 py-4 text-sm font-bold outline-none focus:ring-1 focus:ring-rose-500/50 transition-all"
                                     >
                                         <option value="">Seleccionar Categoría</option>
-                                        {categories?.map((cat: any) => (
+                                        {Array.isArray(categories) && categories.map((cat: any) => (
                                             <option key={cat.id} value={cat.id}>{cat.name}</option>
                                         ))}
                                     </select>

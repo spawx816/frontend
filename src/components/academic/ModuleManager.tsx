@@ -118,7 +118,7 @@ export function ModuleManager({ programId, onBack }: ModuleManagerProps) {
                 )}
 
                 <div className="grid grid-cols-1 gap-4">
-                    {modules?.map((m: any, index: number) => (
+                    {Array.isArray(modules) && modules.map((m: any, index: number) => (
                         <div key={m.id} className="bg-slate-950/50 border border-slate-800/50 p-6 rounded-3xl flex items-center justify-between group hover:border-indigo-500/30 transition-all">
                             <div className="flex items-center space-x-6">
                                 <div className="w-12 h-12 rounded-2xl bg-slate-900 flex items-center justify-center font-black text-indigo-500 border border-slate-800 group-hover:scale-110 transition-transform">

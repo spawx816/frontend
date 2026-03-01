@@ -105,7 +105,7 @@ export function AttendanceManager({ cohortId, onBack, initialModuleId }: Attenda
                         className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors"
                     >
                         <option value="">Selecciona un módulo...</option>
-                        {modules?.map((m: any) => (
+                        {Array.isArray(modules) && modules.map((m: any) => (
                             <option key={m.module_id} value={m.module_id}>
                                 {m.module_name} {m.teacher_first_name ? `(${m.teacher_first_name})` : '(Sin docente)'}
                             </option>

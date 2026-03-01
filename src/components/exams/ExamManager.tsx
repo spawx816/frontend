@@ -86,7 +86,7 @@ export function ExamManager({ cohortId, moduleId }: ExamManagerProps) {
                         <h3 className="text-xs font-black text-white uppercase tracking-wider">Banco de Exámenes</h3>
                     </div>
                     <div className="divide-y divide-slate-800/50 max-h-[400px] overflow-y-auto">
-                        {exams?.map((exam: any) => {
+                        {Array.isArray(exams) && exams.map((exam: any) => {
                             const isAssigned = assignedIds.has(exam.id);
                             return (
                                 <div key={exam.id} className="p-5 flex items-center justify-between group hover:bg-slate-800/20 transition-all">
@@ -156,7 +156,7 @@ export function ExamManager({ cohortId, moduleId }: ExamManagerProps) {
                         <h3 className="text-xs font-black text-white uppercase tracking-wider">Asignaciones en este Grupo</h3>
                     </div>
                     <div className="divide-y divide-slate-800/50 max-h-[400px] overflow-y-auto">
-                        {assignments?.map((assign: any) => (
+                        {Array.isArray(assignments) && assignments.map((assign: any) => (
                             <div key={assign.id} className="p-6 space-y-4 hover:bg-indigo-500/5 transition-all">
                                 <div className="flex items-center justify-between">
                                     <p className="text-sm font-black text-white">{assign.exam_title}</p>
@@ -270,7 +270,7 @@ function AssignmentResultsView({ assignmentId, onClose }: { assignmentId: string
                             </div>
 
                             <div className="space-y-3">
-                                {results?.map((res: any) => (
+                                {Array.isArray(results) && results.map((res: any) => (
                                     <div key={res.id} className="grid grid-cols-12 items-center bg-slate-900/30 border border-slate-800/50 hover:border-indigo-500/30 p-6 rounded-2xl transition-all group">
                                         <div className="col-span-1 text-[10px] font-mono text-slate-500">#{res.matricula}</div>
                                         <div className="col-span-5 flex items-center space-x-3">

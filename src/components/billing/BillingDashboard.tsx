@@ -187,7 +187,7 @@ export function BillingDashboard() {
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-slate-800/50">
-                                    {invoices?.map((invoice: any) => {
+                                    {Array.isArray(invoices) && invoices.map((invoice: any) => {
                                         const remaining = parseFloat(invoice.total_amount) - parseFloat(invoice.paid_amount);
                                         return (
                                             <tr key={invoice.id} className="hover:bg-slate-800/30 transition-colors group">
@@ -312,7 +312,7 @@ export function BillingDashboard() {
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-800/50">
-                                {items?.map((item: any) => (
+                                {Array.isArray(items) && items.map((item: any) => (
                                     <tr key={item.id} className="hover:bg-slate-800/30 transition-colors group">
                                         <td className="px-6 py-4 text-white font-bold">{item.name}</td>
                                         <td className="px-6 py-4 text-xs italic text-slate-500">{item.description || 'Sin descripción'}</td>

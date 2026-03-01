@@ -67,7 +67,7 @@ export function ProgramList({ onSelectProgram }: ProgramListProps) {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {programs?.map((program) => (
+                {Array.isArray(programs) && programs.map((program) => (
                     <div key={program.id} className="bg-slate-900 border border-slate-800 rounded-[2rem] p-8 hover:border-blue-500/30 transition-all group flex flex-col h-full relative overflow-hidden">
                         <div className={`absolute top-0 right-0 w-24 h-24 bg-gradient-to-br transition-opacity duration-500 opacity-5 ${program.is_active ? 'from-emerald-500 to-transparent' : 'from-rose-500 to-transparent'}`} />
 

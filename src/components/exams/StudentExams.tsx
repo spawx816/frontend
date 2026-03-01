@@ -46,7 +46,7 @@ export function StudentExams({ studentId, cohortId }: StudentExamsProps) {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {assignments?.map((assign: any) => {
+                {Array.isArray(assignments) && assignments.map((assign: any) => {
                     const isCompleted = attemptedAssignmentIds.has(assign.id);
                     const attempt = attempts?.find((a: any) => a.assignment_id === assign.id);
                     const endDate = new Date(assign.end_date);

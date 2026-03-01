@@ -168,7 +168,7 @@ export function CreateInvoiceModal({ isOpen, onClose }: { isOpen: boolean; onClo
                                 required
                             >
                                 <option value="">Seleccionar Estudiante...</option>
-                                {students?.map((s: any) => (
+                                {Array.isArray(students) && students.map((s: any) => (
                                     <option key={s.id} value={s.id}>{s.first_name} {s.last_name}</option>
                                 ))}
                             </select>
@@ -277,7 +277,7 @@ export function CreateInvoiceModal({ isOpen, onClose }: { isOpen: boolean; onClo
                         <div>
                             <h3 className="text-xs font-black text-slate-500 uppercase tracking-widest mb-4">Catálogo de Conceptos</h3>
                             <div className="grid grid-cols-1 gap-2 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
-                                {items?.map((item: any) => (
+                                {Array.isArray(items) && items.map((item: any) => (
                                     <button
                                         key={item.id}
                                         type="button"

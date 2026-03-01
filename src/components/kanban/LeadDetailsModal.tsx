@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import type { Lead, LeadAttachment, ChatConversation, ChatMessage } from '../../types/index.ts';
-import { X, User, Mail, Phone, Tag as TagIcon, Star, FileText, Send, Calendar, Zap, Paperclip, Upload, Trash2, Download, MessageSquare, Smartphone, Instagram } from 'lucide-react';
+import { X, User, Mail, Phone, Tag as TagIcon, Star, FileText, Send, Calendar, Zap, Paperclip, Upload, Trash2, Download, MessageSquare, Smartphone, Instagram, MapPin } from 'lucide-react';
 import { useUpdateLead, useLeadAttachments, useUploadAttachment, useDeleteAttachment } from '../../hooks/useLeads.ts';
 import { toast } from 'react-hot-toast';
 import apiClient from '../../lib/api-client';
@@ -25,6 +25,7 @@ export function LeadDetailsModal({ lead, isOpen, onClose }: LeadDetailsModalProp
         last_name: '',
         email: '',
         phone: '',
+        address: '',
         score: 0,
         tags: [],
         notes: '',
@@ -45,6 +46,7 @@ export function LeadDetailsModal({ lead, isOpen, onClose }: LeadDetailsModalProp
                 last_name: lead.last_name || '',
                 email: lead.email || '',
                 phone: lead.phone || '',
+                address: lead.address || '',
                 score: lead.score || 0,
                 tags: lead.tags || [],
                 notes: lead.notes || '',
@@ -134,6 +136,7 @@ export function LeadDetailsModal({ lead, isOpen, onClose }: LeadDetailsModalProp
                     lastName: formData.last_name,
                     email: formData.email,
                     phone: formData.phone,
+                    address: formData.address,
                     score: formData.score,
                     tags: formData.tags,
                     notes: formData.notes,
@@ -408,6 +411,18 @@ export function LeadDetailsModal({ lead, isOpen, onClose }: LeadDetailsModalProp
                                                         value={formData.phone}
                                                         onChange={e => setFormData({ ...formData, phone: e.target.value })}
                                                         className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-sm focus:ring-1 focus:ring-blue-500/50 outline-none transition-all text-white font-mono"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="space-y-1">
+                                                <label className="text-[10px] text-slate-500 font-bold ml-1 uppercase">Dirección</label>
+                                                <div className="relative">
+                                                    <MapPin className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-600" />
+                                                    <input
+                                                        type="text"
+                                                        value={formData.address}
+                                                        onChange={e => setFormData({ ...formData, address: e.target.value })}
+                                                        className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-sm focus:ring-1 focus:ring-blue-500/50 outline-none transition-all text-white"
                                                     />
                                                 </div>
                                             </div>

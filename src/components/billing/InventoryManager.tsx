@@ -233,7 +233,7 @@ export function InventoryManager() {
                         </div>
 
                         <div className="space-y-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
-                            {movements?.map((mov: any) => (
+                            {Array.isArray(movements) && movements.map((mov: any) => (
                                 <div key={mov.id} className="flex space-x-4 p-3 hover:bg-slate-800/30 rounded-2xl transition-all border border-transparent hover:border-slate-800">
                                     <div className={`shrink-0 w-8 h-8 rounded-xl flex items-center justify-center ${mov.type === 'IN' ? 'bg-emerald-500/10 text-emerald-500' : 'bg-rose-500/10 text-rose-500'
                                         }`}>

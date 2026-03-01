@@ -140,7 +140,7 @@ export function ScholarshipSettings() {
             )}
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {scholarships?.map((s: any) => (
+                {Array.isArray(scholarships) && scholarships.map((s: any) => (
                     <div key={s.id} className="bg-slate-900 p-6 rounded-[2rem] border border-slate-800 hover:border-blue-500/30 transition-all group relative overflow-hidden">
                         <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity">
                             <Ticket className="w-20 h-20 -rotate-12" />

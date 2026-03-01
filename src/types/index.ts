@@ -47,6 +47,7 @@ export interface Lead {
     last_name: string;
     email?: string;
     phone?: string;
+    address?: string;
     program_interest_id?: string;
     source?: string;
     campaign?: string;

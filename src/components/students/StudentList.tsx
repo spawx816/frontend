@@ -60,7 +60,7 @@ export function StudentList({ onSelectStudent }: { onSelectStudent: (id: string)
                             className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-4 py-3 text-[10px] font-black uppercase tracking-widest text-white appearance-none focus:border-blue-500 outline-none cursor-pointer"
                         >
                             <option value="">Todas las Sedes</option>
-                            {sedes?.map(s => (
+                            {Array.isArray(sedes) && sedes.map(s => (
                                 <option key={s.id} value={s.id}>{s.name}</option>
                             ))}
                         </select>
@@ -90,7 +90,7 @@ export function StudentList({ onSelectStudent }: { onSelectStudent: (id: string)
                         </div>
                         <p className="text-[10px] font-black text-blue-500 uppercase tracking-[0.3em] animate-pulse">Sincronizando Base de Datos...</p>
                     </div>
-                ) : students && students.length > 0 ? (
+                ) : Array.isArray(students) && students.length > 0 ? (
                     <div className="overflow-x-auto">
                         <table className="w-full text-left text-sm text-slate-300 min-w-[700px]">
                             <thead className="bg-slate-800/50 text-slate-400 uppercase text-[10px] font-bold tracking-wider">
@@ -103,7 +103,7 @@ export function StudentList({ onSelectStudent }: { onSelectStudent: (id: string)
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-800">
-                                {students.map((student) => (
+                                {Array.isArray(students) && students.map((student) => (
                                     <tr
                                         key={student.id}
                                         className="hover:bg-slate-800/30 transition-colors group"

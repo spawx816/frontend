@@ -140,7 +140,7 @@ export function CohortList({ program, onBack }: CohortListProps) {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {cohorts?.map((cohort) => (
+                {Array.isArray(cohorts) && cohorts.map((cohort) => (
                     <div key={cohort.id} className="bg-slate-900 border border-slate-800 rounded-3xl p-6 hover:border-emerald-500/30 transition-all group relative overflow-hidden flex flex-col h-full">
                         <div className="flex items-center justify-between mb-6">
                             <div className="flex items-center space-x-4">

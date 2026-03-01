@@ -55,7 +55,7 @@ export function DashboardOverview() {
             <div className="flex-1 overflow-y-auto p-6 custom-scrollbar">
                 <div className="max-w-7xl mx-auto">
                     {/* 1. Summary Cards */}
-                    <DashboardStatsGrid summary={stats.summary} />
+                    {stats?.summary && <DashboardStatsGrid summary={stats.summary} />}
 
                     {/* 3. Lead Link Generator (Automation) */}
                     <div className="bg-gradient-to-br from-blue-600/10 to-emerald-600/5 rounded-2xl border border-blue-500/20 p-8 mb-8 backdrop-blur-sm relative overflow-hidden group">
@@ -99,10 +99,12 @@ export function DashboardOverview() {
                     </div>
 
                     {/* 4. Charts Section */}
-                    <DashboardCharts
-                        leadsByStage={stats.leadsByStage}
-                        studentsByProgram={stats.studentsByProgram}
-                    />
+                    {stats && (
+                        <DashboardCharts
+                            leadsByStage={stats.leadsByStage || []}
+                            studentsByProgram={stats.studentsByProgram || []}
+                        />
+                    )}
 
                     {/* 3. Footer Info */}
                     <div className="mt-8 pt-8 border-t border-slate-800/50 flex flex-col md:flex-row justify-between items-center text-[10px] text-slate-500 font-medium">

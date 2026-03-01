@@ -16,6 +16,7 @@ export function CreateLeadModal({ pipelineId, stageId, onClose }: CreateLeadModa
         lastName: '',
         email: '',
         phone: '',
+        address: '',
         source: '',
     });
 
@@ -81,13 +82,23 @@ export function CreateLeadModal({ pipelineId, stageId, onClose }: CreateLeadModa
                         />
                     </div>
 
-                    <div className="space-y-1.5">
-                        <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Teléfono</label>
-                        <input
-                            className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white focus:ring-2 focus:ring-blue-500/50 outline-none transition-all"
-                            value={formData.phone}
-                            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        />
+                    <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-1.5">
+                            <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Teléfono</label>
+                            <input
+                                className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white focus:ring-2 focus:ring-blue-500/50 outline-none transition-all"
+                                value={formData.phone}
+                                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                            />
+                        </div>
+                        <div className="space-y-1.5">
+                            <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Dirección</label>
+                            <input
+                                className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white focus:ring-2 focus:ring-blue-500/50 outline-none transition-all"
+                                value={formData.address}
+                                onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                            />
+                        </div>
                     </div>
 
                     <div className="space-y-1.5">

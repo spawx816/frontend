@@ -69,7 +69,7 @@ export function EnrollStudentModal({ studentId, studentName, onClose }: EnrollSt
                                 }}
                             >
                                 <option value="">Selecciona un programa...</option>
-                                {programs?.map((p) => (
+                                {Array.isArray(programs) && programs.map((p) => (
                                     <option key={p.id} value={p.id}>{p.name} ({p.code})</option>
                                 ))}
                             </select>
@@ -84,7 +84,7 @@ export function EnrollStudentModal({ studentId, studentName, onClose }: EnrollSt
                                     onChange={(e) => setSelectedCohortId(e.target.value)}
                                 >
                                     <option value="">Selecciona un cohorte...</option>
-                                    {cohorts?.map((c) => (
+                                    {Array.isArray(cohorts) && cohorts.map((c) => (
                                         <option key={c.id} value={c.id}>{c.name}</option>
                                     ))}
                                 </select>
@@ -104,7 +104,7 @@ export function EnrollStudentModal({ studentId, studentName, onClose }: EnrollSt
                                     onChange={(e) => setSelectedScholarshipId(e.target.value)}
                                 >
                                     <option value="">Ninguna beca aplicada</option>
-                                    {scholarships?.map((s: any) => (
+                                    {Array.isArray(scholarships) && scholarships.map((s: any) => (
                                         <option key={s.id} value={s.id}>
                                             {s.name} ({s.type === 'PERCENTAGE' ? `${s.value}%` : `$${s.value}`})
                                         </option>

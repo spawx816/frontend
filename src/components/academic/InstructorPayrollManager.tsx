@@ -87,7 +87,7 @@ export function InstructorPayrollManager() {
                                 className="w-full bg-slate-950 border border-slate-800 rounded-2xl px-4 py-4 text-white text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all"
                             >
                                 <option value="">Seleccionar Instructor</option>
-                                {instructors?.map((inst: any) => (
+                                {Array.isArray(instructors) && instructors.map((inst: any) => (
                                     <option key={inst.id} value={inst.id}>{inst.first_name} {inst.last_name}</option>
                                 ))}
                             </select>
@@ -177,7 +177,7 @@ export function InstructorPayrollManager() {
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-800/50">
-                        {payments?.map((payment: any) => (
+                        {Array.isArray(payments) && payments.map((payment: any) => (
                             <tr key={payment.id} className="hover:bg-indigo-500/5 transition-colors group">
                                 <td className="px-8 py-6">
                                     <div className="flex flex-col items-center">

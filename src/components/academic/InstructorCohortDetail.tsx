@@ -105,7 +105,7 @@ export function InstructorCohortDetail({ cohort, onBack }: InstructorCohortDetai
                             Seleccionar Módulo
                         </h3>
                         <div className="space-y-3">
-                            {modules?.map((m: any) => (
+                            {Array.isArray(modules) && modules.map((m: any) => (
                                 <button
                                     key={m.module_id}
                                     onClick={() => setSelectedModuleId(m.module_id)}
@@ -167,7 +167,7 @@ export function InstructorCohortDetail({ cohort, onBack }: InstructorCohortDetai
                                 </h3>
                             </div>
                             <div className="divide-y divide-slate-800/50">
-                                {students?.map((student: any) => (
+                                {Array.isArray(students) && students.map((student: any) => (
                                     <div key={student.id} className="p-6 flex items-center justify-between group hover:bg-slate-800/20 transition-all">
                                         <div className="flex items-center space-x-4">
                                             <div className="w-10 h-10 rounded-full bg-slate-950 flex items-center justify-center text-[10px] font-black text-slate-500 border border-slate-800">

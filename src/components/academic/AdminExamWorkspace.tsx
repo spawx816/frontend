@@ -50,7 +50,7 @@ export function AdminExamWorkspace({ cohortId, programId, onBack }: AdminExamWor
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {modules?.map((m: any) => (
+                {Array.isArray(modules) && modules.map((m: any) => (
                     <div
                         key={m.module_id}
                         onClick={() => setSelectedModuleId(m.module_id)}
