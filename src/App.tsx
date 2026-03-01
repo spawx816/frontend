@@ -312,6 +312,20 @@ function AppContent() {
 }
 
 function App() {
+  useEffect(() => {
+    apiClient.get('/settings')
+      .then(res => {
+        if (res.data?.company_name) {
+          document.title = `CRM - ${res.data.company_name}`;
+        } else {
+          document.title = 'CRM';
+        }
+      })
+      .catch(() => {
+        document.title = 'CRM';
+      });
+  }, []);
+
   return (
     <AuthProvider>
       <PortalProvider>
