@@ -78,7 +78,9 @@ export function PublicLeadForm() {
                         <div className={`w-12 h-12 shrink-0 rounded-2xl flex items-center justify-center shadow-lg overflow-hidden ${settings?.logo_url ? 'bg-white shadow-slate-900/20' : 'bg-blue-600 shadow-blue-600/30'}`}>
                             {settings?.logo_url ? (
                                 <img
-                                    src={settings.logo_url.startsWith('http') ? settings.logo_url : `${apiClient.defaults.baseURL?.replace('/api', '') || ''}${settings.logo_url.startsWith('/') ? '' : '/'}${settings.logo_url}`}
+                                    src={settings.logo_url.startsWith('http')
+                                        ? settings.logo_url
+                                        : `${(apiClient.defaults.baseURL || '').replace(/\/api\/?$/, '').replace(/\/$/, '')}${settings.logo_url.startsWith('/') ? '' : '/'}${settings.logo_url}`}
                                     alt="Logo"
                                     className="w-full h-full object-contain p-1"
                                 />
