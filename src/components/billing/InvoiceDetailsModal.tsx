@@ -144,7 +144,7 @@ export function InvoiceDetailsModal({ isOpen, onClose, invoice }: InvoiceDetails
                                                 <td className="px-4 py-3">
                                                     <div className="flex items-center space-x-2">
                                                         <Calendar className="w-3.5 h-3.5 text-slate-500" />
-                                                        <span>{new Date(payment.payment_date).toLocaleDateString()}</span>
+                                                        <span>{new Date(payment.created_at).toLocaleDateString()}</span>
                                                     </div>
                                                 </td>
                                                 <td className="px-4 py-3">

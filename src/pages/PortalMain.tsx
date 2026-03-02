@@ -89,37 +89,61 @@ export function PortalMain() {
                 {viewMode === 'DASHBOARD' ? (
                     <>
                         {/* Section: Quick Stats */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                            <div className="bg-slate-900/50 border border-slate-800 p-6 rounded-[2rem] relative overflow-hidden group">
-                                <Trophy className="absolute -right-4 -bottom-4 w-24 h-24 text-amber-500/5 -rotate-12 group-hover:scale-110 transition-transform" />
-                                <p className="text-[9px] font-black uppercase text-slate-500 tracking-widest mb-1">Promedio General</p>
-                                <h3 className="text-3xl font-black text-white">{avgGrade}</h3>
-                                <div className="mt-2 flex items-center text-[10px] text-emerald-500 font-bold">
-                                    <TrendingUp className="w-3 h-3 mr-1" /> Escalable 5.0
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            <div className="bg-gradient-to-br from-slate-900 to-[#0f172a] border border-slate-800 p-7 rounded-[2rem] relative overflow-hidden group hover:-translate-y-1 hover:border-blue-500/30 transition-all duration-300 shadow-2xl shadow-black/50">
+                                <Trophy className="absolute -right-6 -bottom-6 w-32 h-32 text-amber-500/5 -rotate-12 group-hover:scale-110 group-hover:text-amber-500/10 transition-all duration-500" />
+                                <div className="relative z-10">
+                                    <p className="text-[10px] font-bold uppercase text-slate-400 tracking-[0.2em] mb-2 flex items-center">
+                                        <Trophy className="w-3 h-3 mr-2 text-amber-500" />
+                                        Promedio General
+                                    </p>
+                                    <h3 className="text-4xl font-black text-white tracking-tighter">{avgGrade}</h3>
+                                    <div className="mt-3 flex items-center justify-between w-full">
+                                        <div className="flex items-center text-[10px] text-emerald-400 font-bold bg-emerald-500/10 px-2 py-1 rounded-md">
+                                            <TrendingUp className="w-3 h-3 mr-1" /> Excelencia
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div className="bg-slate-900/50 border border-slate-800 p-6 rounded-[2rem] relative overflow-hidden group">
-                                <UserCheck className="absolute -right-4 -bottom-4 w-24 h-24 text-blue-500/5 -rotate-12 group-hover:scale-110 transition-transform" />
-                                <p className="text-[9px] font-black uppercase text-slate-500 tracking-widest mb-1">Asistencia</p>
-                                <h3 className="text-3xl font-black text-white">{attendancePct}%</h3>
-                                <div className="mt-2 text-[10px] text-slate-500 font-bold uppercase tracking-tight">
-                                    {presentCount} De {attendanceRecords.length} Clases
+
+                            <div className="bg-gradient-to-br from-slate-900 to-[#0f172a] border border-slate-800 p-7 rounded-[2rem] relative overflow-hidden group hover:-translate-y-1 hover:border-indigo-500/30 transition-all duration-300 shadow-2xl shadow-black/50">
+                                <UserCheck className="absolute -right-6 -bottom-6 w-32 h-32 text-indigo-500/5 -rotate-12 group-hover:scale-110 group-hover:text-indigo-500/10 transition-all duration-500" />
+                                <div className="relative z-10">
+                                    <p className="text-[10px] font-bold uppercase text-slate-400 tracking-[0.2em] mb-2 flex items-center">
+                                        <UserCheck className="w-3 h-3 mr-2 text-indigo-500" />
+                                        Asistencia
+                                    </p>
+                                    <h3 className="text-4xl font-black text-white tracking-tighter">{attendancePct}%</h3>
+                                    <div className="mt-3 text-[10px] text-indigo-400 font-bold uppercase tracking-widest bg-indigo-500/10 px-3 py-1.5 rounded-lg inline-block">
+                                        {presentCount} De {attendanceRecords.length} Clases
+                                    </div>
                                 </div>
                             </div>
-                            <div className="bg-slate-900/50 border border-slate-800 p-6 rounded-[2rem] relative overflow-hidden group">
-                                <Layout className="absolute -right-4 -bottom-4 w-24 h-24 text-indigo-500/5 -rotate-12 group-hover:scale-110 transition-transform" />
-                                <p className="text-[9px] font-black uppercase text-slate-500 tracking-widest mb-1">Estatus Académico</p>
-                                <h3 className="text-xl font-black text-white h-[36px] flex items-center">ACTIVO</h3>
-                                <div className="mt-2 text-[10px] text-slate-500 font-bold uppercase tracking-tight">
-                                    {academic.data?.[0]?.program_name || 'Sin programas'}
+
+                            <div className="bg-gradient-to-br from-slate-900 to-[#0f172a] border border-slate-800 p-7 rounded-[2rem] relative overflow-hidden group hover:-translate-y-1 hover:border-blue-500/30 transition-all duration-300 shadow-2xl shadow-black/50">
+                                <Layout className="absolute -right-6 -bottom-6 w-32 h-32 text-blue-500/5 -rotate-12 group-hover:scale-110 group-hover:text-blue-500/10 transition-all duration-500" />
+                                <div className="relative z-10">
+                                    <p className="text-[10px] font-bold uppercase text-slate-400 tracking-[0.2em] mb-2 flex items-center">
+                                        <GraduationCap className="w-3 h-3 mr-2 text-blue-500" />
+                                        Estatus Académico
+                                    </p>
+                                    <h3 className="text-2xl font-black text-emerald-400 h-[40px] flex items-center tracking-tight">ACTIVO</h3>
+                                    <div className="mt-2 text-[10px] text-slate-400 font-bold uppercase tracking-wider truncate">
+                                        {academic.data?.[0]?.program_name || 'Sin programas'}
+                                    </div>
                                 </div>
                             </div>
-                            <div className="bg-emerald-600/5 border border-emerald-600/20 p-6 rounded-[2rem] relative overflow-hidden group">
-                                <Receipt className="absolute -right-4 -bottom-4 w-24 h-24 text-emerald-500/10 -rotate-12 group-hover:scale-110 transition-transform" />
-                                <p className="text-[9px] font-black uppercase text-emerald-500 tracking-widest mb-1">Balance Pendiente</p>
-                                <h3 className="text-3xl font-black text-white">${totalPending.toLocaleString()}</h3>
-                                <div className="mt-2 text-[10px] text-emerald-400 font-bold uppercase tracking-tight">
-                                    {pendingInvoices.length} Facturas Por Pagar
+                            <div className={`bg-gradient-to-br ${totalPending > 0 ? 'from-rose-900/20 to-slate-900 border-rose-500/30' : 'from-emerald-900/20 to-slate-900 border-emerald-500/30'} border p-7 rounded-[2rem] relative overflow-hidden group hover:-translate-y-1 transition-all duration-300 shadow-2xl shadow-black/50`}>
+                                <Receipt className={`absolute -right-6 -bottom-6 w-32 h-32 ${totalPending > 0 ? 'text-rose-500/10' : 'text-emerald-500/10'} -rotate-12 group-hover:scale-110 transition-all duration-500`} />
+                                <div className="relative z-10">
+                                    <p className={`text-[10px] font-bold uppercase tracking-[0.2em] mb-2 flex items-center ${totalPending > 0 ? 'text-rose-400' : 'text-emerald-400'}`}>
+                                        <Receipt className="w-3 h-3 mr-2" />
+                                        Balance Pendiente
+                                    </p>
+                                    <h3 className="text-4xl font-black text-white tracking-tighter">${totalPending.toLocaleString()}</h3>
+                                    <div className={`mt-3 text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-lg inline-block ${totalPending > 0 ? 'bg-rose-500/20 text-rose-300' : 'bg-emerald-500/20 text-emerald-300'}`}>
+                                        {pendingInvoices.length} Factura{pendingInvoices.length !== 1 ? 's' : ''} Por Pagar
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -136,31 +160,31 @@ export function PortalMain() {
                                     {Object.entries(gradesByModule).map(([moduleName, data]: [string, any]) => {
                                         const moduleAvg = (data.grades.reduce((acc: number, g: any) => acc + Number(g.value), 0) / data.grades.length).toFixed(1);
                                         return (
-                                            <div key={moduleName} className="bg-slate-900/40 border border-slate-800 rounded-[2.5rem] overflow-hidden">
-                                                <div className="p-6 border-b border-white/5 bg-white/[0.02] flex items-center justify-between">
+                                            <div key={moduleName} className="bg-gradient-to-br from-slate-900/80 to-slate-900/40 border border-slate-800 rounded-[2rem] overflow-hidden shadow-xl shadow-black/20">
+                                                <div className="p-6 border-b border-slate-800/50 bg-slate-800/20 flex items-center justify-between">
                                                     <div>
-                                                        <h4 className="text-sm font-black text-white uppercase tracking-wider">{moduleName}</h4>
+                                                        <h4 className="text-sm font-black text-indigo-400 uppercase tracking-widest">{moduleName}</h4>
                                                         {data.teacher && (
-                                                            <p className="text-[9px] text-slate-500 font-black uppercase tracking-widest mt-1 flex items-center">
-                                                                <UserCheck className="w-3 h-3 mr-1 text-indigo-500" /> Docente: {data.teacher}
+                                                            <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1.5 flex items-center">
+                                                                <UserCheck className="w-3 h-3 mr-1.5 text-slate-400" /> Docente: {data.teacher}
                                                             </p>
                                                         )}
                                                     </div>
                                                     <div className="text-right">
-                                                        <p className="text-[8px] font-black text-slate-500 uppercase tracking-widest mb-0.5">Promedio Módulo</p>
-                                                        <span className={`text-xl font-black ${Number(moduleAvg) >= 3 ? 'text-emerald-500' : 'text-rose-500'}`}>{moduleAvg}</span>
+                                                        <p className="text-[9px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-1">Promedio Módulo</p>
+                                                        <span className={`text-2xl font-black ${Number(moduleAvg) >= 3 ? 'text-emerald-400 drop-shadow-[0_0_8px_rgba(52,211,153,0.3)]' : 'text-rose-400 drop-shadow-[0_0_8px_rgba(251,113,133,0.3)]'}`}>{moduleAvg}</span>
                                                     </div>
                                                 </div>
-                                                <div className="p-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                                <div className="p-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
                                                     {data.grades.map((grade: any) => (
-                                                        <div key={grade.id} className="bg-slate-950/50 border border-slate-800/50 p-4 rounded-2xl flex items-center justify-between">
+                                                        <div key={grade.id} className="bg-slate-950/80 border border-slate-800/80 p-5 rounded-[1.5rem] flex items-center justify-between group hover:border-indigo-500/30 transition-colors">
                                                             <div>
-                                                                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-tight">{grade.grade_type_name}</p>
-                                                                <p className="text-[8px] text-slate-600 font-mono mt-0.5">{new Date(grade.created_at).toLocaleDateString()}</p>
+                                                                <p className="text-[11px] text-slate-300 font-bold uppercase tracking-wider">{grade.grade_type_name}</p>
+                                                                <p className="text-[9px] text-slate-600 font-mono mt-1 uppercase tracking-widest">{new Date(grade.created_at).toLocaleDateString()}</p>
                                                             </div>
-                                                            <span className={`text-lg font-black ${Number(grade.value) >= 3 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                                                            <div className={`px-4 py-2 rounded-xl text-xl font-black ${Number(grade.value) >= 3 ? 'bg-emerald-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400'}`}>
                                                                 {Number(grade.value).toFixed(1)}
-                                                            </span>
+                                                            </div>
                                                         </div>
                                                     ))}
                                                 </div>
@@ -180,36 +204,36 @@ export function PortalMain() {
                                         <Calendar className="w-4 h-4 mr-2 text-indigo-500" />
                                         Historial de Asistencia
                                     </h3>
-                                    <div className="bg-slate-900/30 border border-slate-800 rounded-[2.5rem] overflow-hidden">
+                                    <div className="bg-slate-900/40 border border-slate-800 rounded-[2rem] overflow-hidden shadow-xl shadow-black/20">
                                         <div className="divide-y divide-slate-800/50">
                                             {attendance.data?.map((row: any) => (
-                                                <div key={row.id} className="p-6 flex items-center justify-between hover:bg-slate-800/20 transition-all">
-                                                    <div className="flex items-center space-x-4">
-                                                        <div className="w-10 h-10 rounded-xl bg-slate-950 flex items-center justify-center text-indigo-500 border border-slate-800">
-                                                            <Clock className="w-5 h-5" />
+                                                <div key={row.id} className="p-6 flex items-center justify-between hover:bg-slate-800/40 transition-all group">
+                                                    <div className="flex items-center space-x-5">
+                                                        <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 group-hover:scale-110 group-hover:bg-indigo-500/20 transition-all duration-300">
+                                                            <Clock className="w-6 h-6" />
                                                         </div>
                                                         <div>
-                                                            <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">
+                                                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">
                                                                 {new Date(row.date).toLocaleDateString('es-ES', { weekday: 'long', day: '2-digit', month: 'long' })}
                                                             </p>
-                                                            <p className="text-sm font-bold text-white">{row.module_name || 'Clase Académica'}</p>
+                                                            <p className="text-sm font-black text-white">{row.module_name || 'Clase Académica'}</p>
                                                             {row.teacher_first_name && (
-                                                                <p className="text-[8px] text-indigo-400 font-bold uppercase mt-0.5">Prof. {row.teacher_first_name} {row.teacher_last_name}</p>
+                                                                <p className="text-[9px] text-indigo-400 font-bold uppercase tracking-widest mt-1 opacity-80">Prof. {row.teacher_first_name} {row.teacher_last_name}</p>
                                                             )}
                                                         </div>
                                                     </div>
                                                     <div className="text-right">
-                                                        <div className={`px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest border ${row.status === 'PRESENT' ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' :
-                                                            row.status === 'LATE' ? 'bg-amber-500/10 text-amber-500 border-amber-500/20' :
-                                                                'bg-rose-500/10 text-rose-500 border-rose-500/20'
+                                                        <div className={`px-5 py-2 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] border shadow-lg ${row.status === 'PRESENT' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20 shadow-emerald-500/5' :
+                                                            row.status === 'LATE' ? 'bg-amber-500/10 text-amber-400 border-amber-500/20 shadow-amber-500/5' :
+                                                                'bg-rose-500/10 text-rose-400 border-rose-500/20 shadow-rose-500/5'
                                                             }`}>
-                                                            {row.status === 'PRESENT' ? 'Presente' : row.status === 'LATE' ? 'Tarde' : 'Ausente'}
+                                                            {row.status === 'PRESENT' ? 'Presente' : row.status === 'LATE' ? 'Retardo' : 'Ausente'}
                                                         </div>
                                                     </div>
                                                 </div>
                                             ))}
                                             {attendance.data?.length === 0 && (
-                                                <div className="p-12 text-center text-slate-600 text-[10px] uppercase font-black tracking-widest">
+                                                <div className="p-16 text-center text-slate-500 text-[11px] uppercase font-black tracking-[0.2em] bg-slate-900/10">
                                                     Sin registros de asistencia
                                                 </div>
                                             )}
@@ -227,21 +251,25 @@ export function PortalMain() {
                                     </h3>
                                     <div className="space-y-4">
                                         {invoices.data?.slice(0, 4).map((invoice: any) => (
-                                            <div key={invoice.id} className="bg-slate-950 border border-slate-800 p-5 rounded-3xl group hover:border-emerald-500/30 transition-all">
-                                                <div className="flex items-center justify-between mb-2">
-                                                    <p className="text-[9px] font-mono text-slate-600 uppercase">Factura #{invoice.invoice_number}</p>
-                                                    <div className={`w-2 h-2 rounded-full ${invoice.status === 'PAID' ? 'bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]' : 'bg-rose-500 shadow-[0_0_10px_rgba(244,63,94,0.5)]'}`} />
+                                            <div key={invoice.id} className="relative bg-slate-900/60 border border-slate-800 p-6 rounded-3xl group hover:-translate-x-1 hover:border-slate-700 transition-all shadow-lg overflow-hidden flex flex-col justify-between">
+                                                <div className={`absolute left-0 top-0 bottom-0 w-1 ${invoice.status === 'PAID' ? 'bg-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.8)]' : 'bg-rose-500 shadow-[0_0_15px_rgba(244,63,94,0.8)]'}`} />
+
+                                                <div className="flex items-center justify-between mb-4 pl-2">
+                                                    <p className="text-[10px] font-black text-slate-500 tracking-[0.2em] uppercase">Factura #{invoice.invoice_number}</p>
+                                                    <div className={`px-3 py-1 rounded-md text-[8px] font-black tracking-widest uppercase ${invoice.status === 'PAID' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400'}`}>
+                                                        {invoice.status === 'PAID' ? 'Pagada' : 'Pendiente'}
+                                                    </div>
                                                 </div>
-                                                <div className="flex items-end justify-between">
+                                                <div className="flex items-end justify-between pl-2">
                                                     <div>
-                                                        <p className="text-lg font-black text-white">${Number(invoice.total_amount).toLocaleString()}</p>
-                                                        <p className="text-[8px] text-slate-500 font-bold uppercase mt-1">Vence: {new Date(invoice.due_date || invoice.created_at).toLocaleDateString()}</p>
+                                                        <p className="text-2xl font-black text-white tracking-tight">${Number(invoice.total_amount).toLocaleString()}</p>
+                                                        <p className="text-[9px] text-slate-600 font-bold uppercase tracking-widest mt-1"><span className="text-slate-500">Vence:</span> {new Date(invoice.due_date || invoice.created_at).toLocaleDateString()}</p>
                                                     </div>
                                                     <button
                                                         onClick={() => setSelectedInvoice(invoice)}
-                                                        className="p-2 bg-slate-900 rounded-xl text-slate-600 hover:text-white transition-colors"
+                                                        className="p-3 bg-slate-800 rounded-2xl text-slate-400 hover:text-white hover:bg-indigo-600 hover:shadow-lg hover:shadow-indigo-600/20 transition-all"
                                                     >
-                                                        <Receipt className="w-4 h-4" />
+                                                        <Receipt className="w-5 h-5" />
                                                     </button>
                                                 </div>
                                             </div>
@@ -249,15 +277,17 @@ export function PortalMain() {
                                     </div>
                                 </div>
 
-                                <div className="bg-gradient-to-br from-indigo-900/20 to-blue-900/20 border border-blue-500/20 p-8 rounded-[2.5rem] relative overflow-hidden group">
-                                    <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:rotate-12 transition-transform">
-                                        <GraduationCap className="w-20 h-20 text-white" />
+                                <div className="bg-gradient-to-br from-indigo-900/40 to-slate-900 border border-indigo-500/30 p-8 rounded-[2.5rem] relative overflow-hidden group shadow-2xl shadow-indigo-900/20">
+                                    <div className="absolute -top-4 -right-4 p-4 opacity-5 group-hover:rotate-12 group-hover:scale-110 group-hover:opacity-10 transition-all duration-500">
+                                        <GraduationCap className="w-32 h-32 text-indigo-300" />
                                     </div>
-                                    <h4 className="text-xs font-black text-blue-400 uppercase tracking-widest mb-4">Mesa de Ayuda</h4>
-                                    <p className="text-xs text-slate-400 leading-relaxed mb-6">¿Tienes dudas sobre tus notas o asistencia modular? Contacta a coordinación académica.</p>
-                                    <button className="w-full py-4 bg-white text-slate-950 rounded-2xl font-black uppercase text-[10px] tracking-widest hover:bg-blue-500 hover:text-white transition-all">
-                                        Solicitar Soporte
-                                    </button>
+                                    <div className="relative z-10 text-center">
+                                        <h4 className="text-xs font-black text-indigo-400 uppercase tracking-[0.2em] mb-3">Mesa de Ayuda</h4>
+                                        <p className="text-[11px] text-slate-400 leading-relaxed mb-6 px-2">¿Tienes dudas sobre tus notas o asistencia modular? Contacta a coordinación académica.</p>
+                                        <button className="w-full py-4 bg-indigo-500 text-white rounded-2xl font-black uppercase text-[10px] tracking-[0.2em] hover:bg-indigo-400 hover:shadow-lg hover:shadow-indigo-500/30 transition-all">
+                                            Solicitar Soporte
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
