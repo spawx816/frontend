@@ -1,13 +1,18 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import apiClient from '../lib/api-client.ts';
-import { Send, GraduationCap, CheckCircle2, Globe, Shield } from 'lucide-react';
+import { Send, GraduationCap, CheckCircle2 } from 'lucide-react';
 
 export function PublicLeadForm() {
     const [searchParams] = useSearchParams();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
+    const [settings, setSettings] = useState<any>(null);
+
+    useEffect(() => {
+        apiClient.get('/settings').then(res => setSettings(res.data)).catch(console.error);
+    }, []);
 
     const [formData, setFormData] = useState({
         firstName: '',
@@ -69,11 +74,23 @@ export function PublicLeadForm() {
 
                 {/* Left Side: Branding/Value Prop */}
                 <div className="flex flex-col justify-center p-8 lg:p-16 text-white">
-                    <div className="flex items-center space-x-3 mb-12">
-                        <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-600/30">
-                            <GraduationCap className="w-7 h-7" />
+                    <div className="flex items-center space-x-4 mb-12">
+                        <div className={`w-12 h-12 shrink-0 rounded-2xl flex items-center justify-center shadow-lg overflow-hidden ${settings?.logo_url ? 'bg-white shadow-slate-900/20' : 'bg-blue-600 shadow-blue-600/30'}`}>
+                            {settings?.logo_url ? (
+                                <img
+                                    src={settings.logo_url.startsWith('http') ? settings.logo_url : `${apiClient.defaults.baseURL?.replace('/api', '') || ''}${settings.logo_url.startsWith('/') ? '' : '/'}${settings.logo_url}`}
+                                    alt="Logo"
+                                    className="w-full h-full object-contain p-1"
+                                />
+                            ) : (
+                                <GraduationCap className="w-7 h-7" />
+                            )}
                         </div>
-                        <span className="text-2xl font-black tracking-tighter">EduPremium</span>
+                        <div className="flex-1 min-w-0">
+                            <span className="block text-xl md:text-2xl font-black tracking-tight leading-tight uppercase line-clamp-3">
+                                {settings?.company_name || 'EduPremium'}
+                            </span>
+                        </div>
                     </div>
 
                     <h1 className="text-5xl lg:text-7xl font-black mb-8 leading-[1.1] tracking-tight">
@@ -84,20 +101,7 @@ export function PublicLeadForm() {
                         Únete a nuestra comunidad de estudiantes y accede a los programas más innovadores del mercado. Déjanos tus datos y te enviaremos toda la información.
                     </p>
 
-                    <div className="space-y-6">
-                        <div className="flex items-center space-x-4">
-                            <div className="w-10 h-10 bg-slate-800/50 rounded-xl flex items-center justify-center border border-slate-700">
-                                <Globe className="w-5 h-5 text-blue-400" />
-                            </div>
-                            <p className="text-slate-300 font-bold text-sm">Validación Internacional</p>
-                        </div>
-                        <div className="flex items-center space-x-4">
-                            <div className="w-10 h-10 bg-slate-800/50 rounded-xl flex items-center justify-center border border-slate-700">
-                                <Shield className="w-5 h-5 text-emerald-400" />
-                            </div>
-                            <p className="text-slate-300 font-bold text-sm">Privacidad Certificada</p>
-                        </div>
-                    </div>
+
                 </div>
 
                 {/* Right Side: Form */}

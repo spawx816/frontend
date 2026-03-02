@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useStudents } from '../../hooks/useStudents.ts';
 import { useSedes } from '../../hooks/useAcademic.ts';
-import { Mail, Phone, BadgeCheck, Users, GraduationCap, Search, Filter, X, MapPin } from 'lucide-react';
+import { Mail, Phone, BadgeCheck, Users, User, GraduationCap, Search, Filter, X, MapPin } from 'lucide-react';
 import { EmptyState } from '../shared/EmptyState.tsx';
 import { EnrollStudentModal } from './EnrollStudentModal.tsx';
+import { RegisterStudentModal } from './RegisterStudentModal.tsx';
 
 export function StudentList({ onSelectStudent }: { onSelectStudent: (id: string) => void }) {
     const [searchTerm, setSearchTerm] = useState('');
@@ -20,6 +21,7 @@ export function StudentList({ onSelectStudent }: { onSelectStudent: (id: string)
     });
 
     const [enrollingStudent, setEnrollingStudent] = useState<{ id: string, name: string } | null>(null);
+    const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -30,6 +32,26 @@ export function StudentList({ onSelectStudent }: { onSelectStudent: (id: string)
 
     return (
         <div className="space-y-4">
+            {/* Action Bar */}
+            <div className="flex justify-between items-center bg-slate-900 border border-slate-800 p-4 rounded-2xl shadow-xl shadow-black/20">
+                <div className="flex items-center space-x-3">
+                    <div className="p-2 bg-blue-500/10 rounded-lg border border-blue-500/20">
+                        <Users className="w-5 h-5 text-blue-400" />
+                    </div>
+                    <div>
+                        <h2 className="text-sm font-bold text-white tracking-tight">Directorio Estudiantil</h2>
+                        <p className="text-[10px] text-slate-400 font-medium">Gestiona y matricula a tus estudiantes</p>
+                    </div>
+                </div>
+                <button
+                    onClick={() => setIsRegisterModalOpen(true)}
+                    className="flex items-center space-x-2 px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded-xl transition-all shadow-lg shadow-blue-900/50"
+                >
+                    <User className="w-4 h-4" />
+                    <span>Registrar Estudiante</span>
+                </button>
+            </div>
+
             {/* Filters Bar */}
             <div className="flex flex-col md:flex-row gap-4 items-center justify-between bg-slate-900 border border-slate-800 p-4 rounded-2xl shadow-xl shadow-black/20">
                 <div className="relative flex-1 w-full max-w-md">
@@ -184,6 +206,11 @@ export function StudentList({ onSelectStudent }: { onSelectStudent: (id: string)
                         onClose={() => setEnrollingStudent(null)}
                     />
                 )}
+
+                <RegisterStudentModal
+                    isOpen={isRegisterModalOpen}
+                    onClose={() => setIsRegisterModalOpen(false)}
+                />
             </div>
         </div>
     );

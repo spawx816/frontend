@@ -267,7 +267,7 @@ export function StudentProfile({ studentId, onBack }: StudentProfileProps) {
                                                 </tr>
                                             </thead>
                                             <tbody className="divide-y divide-slate-800">
-                                                {invoices?.map((invoice: any) => (
+                                                {Array.isArray(invoices) && invoices.map((invoice: any) => (
                                                     <tr key={invoice.id} className="hover:bg-slate-800/30 transition-colors group">
                                                         <td className="px-6 py-4 font-mono text-xs text-white group-hover:text-blue-400 transition-colors uppercase">{invoice.invoice_number}</td>
                                                         <td className="px-6 py-4 text-xs text-slate-500">{new Date(invoice.issue_date).toLocaleDateString()}</td>

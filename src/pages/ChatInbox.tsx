@@ -119,7 +119,7 @@ export function ChatInbox() {
                             <div className="space-y-3">
                                 {[1, 2, 3].map(i => <div key={i} className="h-20 bg-slate-900/50 animate-pulse rounded-2xl" />)}
                             </div>
-                        ) : conversations.length === 0 ? (
+                        ) : !Array.isArray(conversations) || conversations.length === 0 ? (
                             <div className="flex flex-col items-center justify-center h-full text-slate-500 p-8 text-center bg-slate-900/20 rounded-3xl border border-dashed border-slate-800">
                                 <MessageSquare className="w-12 h-12 mb-4 opacity-20" />
                                 <p className="text-xs font-bold uppercase tracking-widest">No hay conversaciones</p>

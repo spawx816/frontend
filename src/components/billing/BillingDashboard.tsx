@@ -41,10 +41,10 @@ export function BillingDashboard() {
         );
     }
 
-    const pendingTotal = invoices?.reduce((sum: number, inv: any) =>
+    const pendingTotal = (Array.isArray(invoices) ? invoices : []).reduce((sum: number, inv: any) =>
         inv.status !== 'PAID' && inv.status !== 'VOIDED' ? sum + (parseFloat(inv.total_amount) - parseFloat(inv.paid_amount)) : sum, 0) || 0;
-    const collectedTotal = invoices?.reduce((sum: number, inv: any) => sum + parseFloat(inv.paid_amount), 0) || 0;
-    const overdueCount = invoices?.filter((inv: any) => inv.status !== 'PAID' && inv.status !== 'VOIDED' && new Date(inv.due_date) < new Date()).length || 0;
+    const collectedTotal = (Array.isArray(invoices) ? invoices : []).reduce((sum: number, inv: any) => sum + parseFloat(inv.paid_amount), 0) || 0;
+    const overdueCount = (Array.isArray(invoices) ? invoices : []).filter((inv: any) => inv.status !== 'PAID' && inv.status !== 'VOIDED' && new Date(inv.due_date) < new Date()).length || 0;
 
     return (
         <div className="space-y-6">

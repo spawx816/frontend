@@ -14,7 +14,7 @@ export function InventoryManager() {
     const [adjustmentType, setAdjustmentType] = useState<'IN' | 'OUT'>('IN');
     const [adjustmentNotes, setAdjustmentNotes] = useState('');
 
-    const inventoryItems = items?.filter((i: any) => i.is_inventory &&
+    const inventoryItems = (Array.isArray(items) ? items : []).filter((i: any) => i.is_inventory &&
         (i.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
             i.description?.toLowerCase().includes(searchTerm.toLowerCase()))
     ) || [];

@@ -59,7 +59,7 @@ export function ExpenseManager() {
         }
     };
 
-    const totalSpent = expenses?.reduce((sum: number, e: any) => sum + parseFloat(e.amount), 0) || 0;
+    const totalSpent = (Array.isArray(expenses) ? expenses : []).reduce((sum: number, e: any) => sum + parseFloat(e.amount), 0) || 0;
 
     if (isLoadingCats || isLoadingExpenses) {
         return (

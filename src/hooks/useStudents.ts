@@ -23,6 +23,19 @@ export function useStudent(id?: string) {
     });
 }
 
+export function useCreateStudent() {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: async (data: any) => {
+            const { data: res } = await apiClient.post('/students', data);
+            return res;
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['students'] });
+        },
+    });
+}
+
 export function useConvertLead() {
     const queryClient = useQueryClient();
     return useMutation({

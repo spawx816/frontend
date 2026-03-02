@@ -85,6 +85,7 @@ export interface Cohort {
 export interface Student {
     id: string;
     matricula?: string;
+    document_id?: string;
     first_name: string;
     last_name: string;
     email?: string;

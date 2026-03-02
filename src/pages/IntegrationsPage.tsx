@@ -84,7 +84,7 @@ export function IntegrationsPage() {
                         </h3>
 
                         <div className="grid grid-cols-1 gap-4">
-                            {keys?.map((k: any) => (
+                            {Array.isArray(keys) && keys.map((k: any) => (
                                 <div key={k.id} className="bg-slate-900/50 border border-slate-800 rounded-2xl p-6 flex flex-col md:flex-row md:items-center justify-between hover:border-slate-700 transition-all group">
                                     <div className="flex items-center space-x-4 mb-4 md:mb-0">
                                         <div className={`w-12 h-12 rounded-xl flex items-center justify-center border ${k.is_active ? 'bg-blue-600/10 border-blue-500/20 text-blue-400' : 'bg-slate-800 border-slate-700 text-slate-500'}`}>

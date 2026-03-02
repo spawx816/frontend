@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { KanbanBoard } from './components/kanban/KanbanBoard.tsx';
+
 import { StudentList } from './components/students/StudentList.tsx';
 import { BillingDashboard } from './components/billing/BillingDashboard.tsx';
 import { DashboardOverview } from './pages/DashboardOverview.tsx';
@@ -13,10 +13,11 @@ import type { AcademicProgram } from './types/index.ts';
 import { PortalLogin } from './pages/PortalLogin.tsx';
 import { PortalMain } from './pages/PortalMain.tsx';
 import { usePortalAuth, PortalProvider } from './hooks/usePortal.tsx';
+import { LeadInboxList } from './components/students/LeadInboxList.tsx';
 import { useAuth, AuthProvider } from './hooks/useAuth.tsx';
 import { InstructorMain } from './pages/InstructorMain.tsx';
 import { Login } from './pages/Login.tsx';
-import { Layout, Users, GraduationCap, Menu, X, Receipt, BarChart3, Link, Wallet, MessageSquare, Package, Settings as SettingsIcon, LogOut } from 'lucide-react';
+import { Users, GraduationCap, Menu, X, Receipt, BarChart3, Link, Wallet, MessageSquare, Package, Settings as SettingsIcon, LogOut } from 'lucide-react';
 import { InstructorPayrollManager } from './components/academic/InstructorPayrollManager.tsx';
 import { ChatInbox } from './pages/ChatInbox.tsx';
 import { SettingsPage } from './pages/SettingsPage.tsx';
@@ -26,7 +27,7 @@ import { ExpenseManager } from './components/billing/ExpenseManager.tsx';
 import apiClient from './lib/api-client';
 
 function DashboardLayout() {
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'kanban' | 'students' | 'academic' | 'billing' | 'student_profile' | 'integrations' | 'payroll' | 'chat' | 'inventory' | 'expenses' | 'settings'>('dashboard');
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'prospects' | 'students' | 'academic' | 'billing' | 'student_profile' | 'integrations' | 'payroll' | 'chat' | 'inventory' | 'expenses' | 'settings'>('dashboard');
   const [selectedStudentId, setSelectedStudentId] = useState<string | null>(null);
   const [selectedProgram, setSelectedProgram] = useState<AcademicProgram | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -41,9 +42,10 @@ function DashboardLayout() {
 
   const navItems: NavItemType[] = [
     { id: 'dashboard', label: 'Dashboard', icon: BarChart3 },
-    { id: 'kanban', label: 'Admisiones', icon: Layout },
+
     { id: 'chat', label: 'Mensajería', icon: MessageSquare },
-    { id: 'students', label: 'Estudiantes', icon: Users },
+    { id: 'prospects', label: 'Prospectos / Leads', icon: Users },
+    { id: 'students', label: 'Directorio Estudiantes', icon: GraduationCap },
     { id: 'academic', label: 'Académico', icon: GraduationCap },
     { id: 'billing', label: 'Facturación', icon: Receipt },
     { id: 'inventory', label: 'Inventario', icon: Package },
@@ -68,8 +70,18 @@ function DashboardLayout() {
             onBack={() => setActiveTab('students')}
           />
         ) : <StudentList onSelectStudent={handleStudentSelect} />;
-      case 'kanban': return <KanbanBoard />;
+
       case 'chat': return <ChatInbox />;
+      case 'prospects': return (
+        <div className="flex flex-col h-full bg-[#0f172a] overflow-hidden">
+          <header className="h-16 border-b border-slate-800 flex items-center px-6 shrink-0 bg-[#0f172a]/80 backdrop-blur-sm z-10 w-full">
+            <h1 className="text-lg font-bold text-white tracking-tight">Solicitudes Web</h1>
+          </header>
+          <div className="flex-1 overflow-y-auto p-6 text-white font-sans text-xs">
+            <LeadInboxList />
+          </div>
+        </div>
+      );
       case 'students': return (
         <div className="flex flex-col h-full bg-[#0f172a] overflow-hidden">
           <header className="h-16 border-b border-slate-800 flex items-center px-6 shrink-0 bg-[#0f172a]/80 backdrop-blur-sm z-10 w-full">
@@ -161,16 +173,22 @@ function DashboardLayout() {
       {/* Sidebar Desktop */}
       <aside className="hidden md:flex w-64 flex-col bg-[#020617] border-r border-slate-800">
         <div className="p-6 flex items-center space-x-3 mb-4">
-          <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-900/40 overflow-hidden">
+          <div className={`w-10 h-10 shrink-0 rounded-xl flex items-center justify-center shadow-lg overflow-hidden ${companySettings?.logo_url ? 'bg-white shadow-slate-900/20' : 'bg-blue-600 shadow-blue-900/40'}`}>
             {companySettings?.logo_url ? (
-              <img src={companySettings.logo_url} alt="Logo" className="w-full h-full object-contain p-1" />
+              <img
+                src={companySettings.logo_url.startsWith('http') ? companySettings.logo_url : `${apiClient.defaults.baseURL?.replace('/api', '') || ''}${companySettings.logo_url.startsWith('/') ? '' : '/'}${companySettings.logo_url}`}
+                alt="Logo"
+                className="w-full h-full object-contain p-0.5"
+              />
             ) : (
               <GraduationCap className="w-6 h-6 text-white" />
             )}
           </div>
-          <span className="text-xl font-black tracking-tighter text-white truncate max-w-[140px]">
-            {companySettings?.company_name || 'EduCRM'}
-          </span>
+          <div className="flex-1 min-w-0">
+            <span className="block text-sm font-black tracking-tight text-white leading-tight uppercase line-clamp-2" title={companySettings?.company_name}>
+              {companySettings?.company_name || 'EduCRM'}
+            </span>
+          </div>
         </div>
 
 
@@ -231,13 +249,7 @@ function DashboardLayout() {
         </div>
 
         <div className="p-4 mt-auto space-y-4">
-          <div className="p-4 bg-slate-900/50 rounded-2xl border border-slate-800">
-            <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Plan</p>
-            <p className="text-xs font-bold text-white mb-3">PENTAFASE PRO</p>
-            <div className="h-1 w-full bg-slate-800 rounded-full overflow-hidden">
-              <div className="h-full w-[85%] bg-blue-600" />
-            </div>
-          </div>
+
 
           <div className="flex items-center space-x-3 p-3 bg-slate-900/50 rounded-2xl border border-slate-800">
             <div className="w-10 h-10 bg-indigo-600 rounded-full flex shrink-0 items-center justify-center text-white font-bold shadow-inner uppercase">

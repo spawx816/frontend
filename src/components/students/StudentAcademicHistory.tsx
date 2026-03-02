@@ -53,7 +53,7 @@ export function StudentAcademicHistory({ studentId }: StudentAcademicHistoryProp
 
                         {enrollment.modules?.map((module: any, idx: number) => {
                             const attendanceCount = module.attendance?.length || 0;
-                            const presentCount = module.attendance?.filter((a: any) => a.status === 'PRESENT').length || 0;
+                            const presentCount = (Array.isArray(module.attendance) ? module.attendance : []).filter((a: any) => a.status === 'PRESENT').length || 0;
                             const attendanceRate = attendanceCount > 0 ? (presentCount / attendanceCount) * 100 : 0;
 
                             const averageGrade = module.grades?.length > 0
@@ -132,7 +132,7 @@ export function StudentAcademicHistory({ studentId }: StudentAcademicHistoryProp
                                                         <span className={`text-xs font-black ${parseFloat(g.value) < 3.5 ? 'text-rose-500' : 'text-slate-300'}`}>{g.value}</span>
                                                     </div>
                                                 ))}
-                                                {module.exams?.filter((ex: any) => ex.attempt_status === 'COMPLETED').map((ex: any, idx: number) => (
+                                                {(Array.isArray(module.exams) ? module.exams : []).filter((ex: any) => ex.attempt_status === 'COMPLETED').map((ex: any, idx: number) => (
                                                     <div key={idx} className="flex flex-col px-3 py-2 bg-blue-500/5 rounded-xl border border-blue-500/10">
                                                         <span className="text-[8px] text-blue-500/60 uppercase font-black tracking-[0.15em] mb-1 truncate">Examen: {ex.exam_title}</span>
                                                         <span className="text-xs font-black text-blue-400">{ex.score}</span>

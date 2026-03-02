@@ -89,7 +89,7 @@ export function InstructorMain() {
 
                         {/* Section: Cohorts Grid */}
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {cohorts?.map((cohort: any) => (
+                            {Array.isArray(cohorts) && cohorts.map((cohort: any) => (
                                 <div
                                     key={cohort.id}
                                     onClick={() => setSelectedCohort(cohort)}
@@ -163,7 +163,7 @@ function InstructorPaymentsView({ teacherId }: { teacherId: string }) {
                 <div className="bg-slate-900/50 border border-slate-800 p-8 rounded-[2.5rem] backdrop-blur-sm">
                     <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Total Recibido</p>
                     <p className="text-3xl font-black text-white tracking-tighter">
-                        ${payments?.reduce((sum: number, p: any) => sum + parseFloat(p.amount), 0).toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                        ${(Array.isArray(payments) ? payments : []).reduce((sum: number, p: any) => sum + parseFloat(p.amount), 0).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </p>
                 </div>
             </div>
@@ -180,7 +180,7 @@ function InstructorPaymentsView({ teacherId }: { teacherId: string }) {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-800/50">
-                            {payments?.map((payment: any) => (
+                            {Array.isArray(payments) && payments.map((payment: any) => (
                                 <tr key={payment.id} className="hover:bg-indigo-500/5 transition-colors">
                                     <td className="px-8 py-6">
                                         <p className="text-white font-black text-sm">
