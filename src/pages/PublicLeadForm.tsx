@@ -80,7 +80,7 @@ export function PublicLeadForm() {
                                 <img
                                     src={settings.logo_url.startsWith('http')
                                         ? settings.logo_url
-                                        : `${(apiClient.defaults.baseURL || '').replace(/\/api\/?$/, '').replace(/\/$/, '')}${settings.logo_url.startsWith('/') ? '' : '/'}${settings.logo_url}`}
+                                        : `${(apiClient.defaults.baseURL?.startsWith('http') ? apiClient.defaults.baseURL : window.location.origin + (apiClient.defaults.baseURL || '')).replace(/\/api\/?$/, '').replace(/\/$/, '')}${settings.logo_url.startsWith('/') ? '' : '/'}${settings.logo_url}`}
                                     alt="Logo"
                                     className="w-full h-full object-contain p-1"
                                 />

@@ -178,7 +178,7 @@ function DashboardLayout() {
               <img
                 src={companySettings.logo_url.startsWith('http')
                   ? companySettings.logo_url
-                  : `${(apiClient.defaults.baseURL || '').replace(/\/api\/?$/, '').replace(/\/$/, '')}${companySettings.logo_url.startsWith('/') ? '' : '/'}${companySettings.logo_url}`}
+                  : `${(apiClient.defaults.baseURL?.startsWith('http') ? apiClient.defaults.baseURL : window.location.origin + (apiClient.defaults.baseURL || '')).replace(/\/api\/?$/, '').replace(/\/$/, '')}${companySettings.logo_url.startsWith('/') ? '' : '/'}${companySettings.logo_url}`}
                 alt="Logo"
                 className="w-full h-full object-contain p-0.5"
               />
