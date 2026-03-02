@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
-import apiClient from '../lib/api-client.ts';
+import apiClient, { getStaticUrl } from '../lib/api-client';
 import { Send, GraduationCap, CheckCircle2 } from 'lucide-react';
 
 export function PublicLeadForm() {
@@ -78,9 +78,7 @@ export function PublicLeadForm() {
                         <div className={`w-12 h-12 shrink-0 rounded-2xl flex items-center justify-center shadow-lg overflow-hidden ${settings?.logo_url ? 'bg-white shadow-slate-900/20' : 'bg-blue-600 shadow-blue-600/30'}`}>
                             {settings?.logo_url ? (
                                 <img
-                                    src={settings.logo_url.startsWith('http')
-                                        ? settings.logo_url
-                                        : `${(apiClient.defaults.baseURL?.startsWith('http') ? apiClient.defaults.baseURL : window.location.origin + (apiClient.defaults.baseURL || '')).replace(/\/api\/?$/, '').replace(/\/$/, '')}${settings.logo_url.startsWith('/') ? '' : '/'}${settings.logo_url}`}
+                                    src={getStaticUrl(settings.logo_url)}
                                     alt="Logo"
                                     className="w-full h-full object-contain p-1"
                                 />

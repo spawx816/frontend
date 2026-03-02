@@ -24,7 +24,7 @@ import { SettingsPage } from './pages/SettingsPage.tsx';
 
 import { InventoryManager } from './components/billing/InventoryManager.tsx';
 import { ExpenseManager } from './components/billing/ExpenseManager.tsx';
-import apiClient from './lib/api-client';
+import apiClient, { getStaticUrl } from './lib/api-client';
 
 function DashboardLayout() {
   const [activeTab, setActiveTab] = useState<'dashboard' | 'prospects' | 'students' | 'academic' | 'billing' | 'student_profile' | 'integrations' | 'payroll' | 'chat' | 'inventory' | 'expenses' | 'settings'>('dashboard');
@@ -176,9 +176,7 @@ function DashboardLayout() {
           <div className={`w-10 h-10 shrink-0 rounded-xl flex items-center justify-center shadow-lg overflow-hidden ${companySettings?.logo_url ? 'bg-white shadow-slate-900/20' : 'bg-blue-600 shadow-blue-900/40'}`}>
             {companySettings?.logo_url ? (
               <img
-                src={companySettings.logo_url.startsWith('http')
-                  ? companySettings.logo_url
-                  : `${(apiClient.defaults.baseURL?.startsWith('http') ? apiClient.defaults.baseURL : window.location.origin + (apiClient.defaults.baseURL || '')).replace(/\/api\/?$/, '').replace(/\/$/, '')}${companySettings.logo_url.startsWith('/') ? '' : '/'}${companySettings.logo_url}`}
+                src={getStaticUrl(companySettings.logo_url)}
                 alt="Logo"
                 className="w-full h-full object-contain p-0.5"
               />

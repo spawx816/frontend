@@ -29,4 +29,12 @@ apiClient.interceptors.response.use(
     }
 );
 
+export const getStaticUrl = (path?: string) => {
+    if (!path) return '';
+    if (path.startsWith('http')) return path;
+    const base = (apiClient.defaults.baseURL || '').replace(/\/$/, '');
+    const cleanPath = path.startsWith('/') ? path : `/${path}`;
+    return `${base}${cleanPath}`;
+};
+
 export default apiClient;
