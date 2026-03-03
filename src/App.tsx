@@ -42,8 +42,6 @@ function DashboardLayout() {
 
   const navItems: NavItemType[] = [
     { id: 'dashboard', label: 'Dashboard', icon: BarChart3 },
-
-    { id: 'chat', label: 'Mensajería', icon: MessageSquare },
     { id: 'prospects', label: 'Prospectos / Leads', icon: Users },
     { id: 'students', label: 'Directorio Estudiantes', icon: GraduationCap },
     { id: 'academic', label: 'Académico', icon: GraduationCap },
@@ -54,6 +52,26 @@ function DashboardLayout() {
     { id: 'settings', label: 'Configuración', icon: SettingsIcon, adminOnly: true },
   ];
 
+
+  const [pendingLeadsCount, setPendingLeadsCount] = useState(0);
+
+  useEffect(() => {
+    const fetchLeadCount = async () => {
+      try {
+        const res = await apiClient.get('/leads');
+        setPendingLeadsCount(res.data.length);
+      } catch (error) {
+        console.error('Error fetching leads count:', error);
+      }
+    };
+
+    // Fetch initially
+    fetchLeadCount();
+
+    // Refresh every 30 seconds since this is the global layout
+    const interval = setInterval(fetchLeadCount, 30000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleStudentSelect = (id: string) => {
     setSelectedStudentId(id);
@@ -210,9 +228,9 @@ function DashboardLayout() {
               >
                 <item.icon className={`w-5 h-5 transition-colors ${activeTab === item.id ? 'text-blue-400' : 'text-slate-500 group-hover:text-slate-300'}`} />
                 <span className="text-sm font-bold tracking-tight">{item.label}</span>
-                {item.id === 'chat' && (
-                  <span className="ml-auto w-5 h-5 bg-red-500 text-white text-[10px] font-black rounded-full flex items-center justify-center animate-bounce shadow-lg shadow-red-900/20">
-                    3
+                {item.id === 'prospects' && pendingLeadsCount > 0 && (
+                  <span className="ml-auto w-5 h-5 bg-red-500 text-white text-[10px] font-black rounded-full flex items-center justify-center animate-pulse shadow-lg shadow-red-900/20">
+                    {pendingLeadsCount > 99 ? '99+' : pendingLeadsCount}
                   </span>
                 )}
               </button>

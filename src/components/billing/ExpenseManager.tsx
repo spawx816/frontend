@@ -79,7 +79,7 @@ export function ExpenseManager() {
                     </div>
                     <div className="relative z-10">
                         <span className="text-[10px] font-black text-rose-400 uppercase tracking-widest bg-rose-500/10 px-3 py-1 rounded-full mb-4 inline-block border border-rose-500/20">Egresos Totales</span>
-                        <p className="text-4xl font-black text-white mt-2">${totalSpent.toLocaleString()}</p>
+                        <p className="text-4xl font-black text-white mt-2">RD${totalSpent.toLocaleString()}</p>
                         <p className="text-xs text-slate-500 mt-2 font-bold tracking-tight">Periodo Seleccionado</p>
                     </div>
                 </div>
@@ -253,7 +253,7 @@ export function ExpenseManager() {
                                 <div className="space-y-2">
                                     <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-1">Monto del Pago</label>
                                     <div className="relative">
-                                        <span className="absolute left-5 top-1/2 -translate-y-1/2 text-rose-500 font-black text-lg">$</span>
+                                        <span className="absolute left-5 top-1/2 -translate-y-1/2 text-rose-500 font-black text-lg">RD$</span>
                                         <input
                                             type="number"
                                             step="0.01"

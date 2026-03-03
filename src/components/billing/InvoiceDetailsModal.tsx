@@ -57,18 +57,17 @@ export function InvoiceDetailsModal({ isOpen, onClose, invoice }: InvoiceDetails
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div className="bg-slate-950 border border-slate-800 p-4 rounded-xl">
                             <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Total Facturado</span>
-                            <p className="text-xl font-bold text-white mt-1">$ {parseFloat(invoice.total_amount).toLocaleString()}</p>
+                            <p className="text-xl font-bold text-white mt-1">RD$ {parseFloat(invoice.total_amount).toLocaleString()}</p>
                         </div>
                         <div className="bg-emerald-500/5 border border-emerald-500/20 p-4 rounded-xl">
                             <span className="text-[10px] font-bold text-emerald-500 uppercase tracking-widest">Total Pagado</span>
-                            <p className="text-xl font-bold text-emerald-400 mt-1">$ {parseFloat(invoice.paid_amount).toLocaleString()}</p>
+                            <p className="text-xl font-bold text-emerald-400 mt-1">RD$ {parseFloat(invoice.paid_amount).toLocaleString()}</p>
                         </div>
                         <div className={`p-4 rounded-xl border ${remaining > 0 ? 'bg-amber-500/5 border-amber-500/20' : 'bg-emerald-500/5 border-emerald-500/20'}`}>
                             <span className={`text-[10px] font-bold uppercase tracking-widest ${remaining > 0 ? 'text-amber-500' : 'text-emerald-500'}`}>
                                 {remaining > 0 ? 'Saldo Restante' : 'Factura Liquidada'}
                             </span>
-                            <p className={`text-xl font-bold mt-1 ${remaining > 0 ? 'text-amber-400' : 'text-emerald-400'}`}>
-                                $ {remaining.toLocaleString()}
+                            <p className={`text-xl font-bold mt-1 ${remaining > 0 ? 'text-amber-400' : 'text-emerald-400'}`}>RD$ {remaining.toLocaleString()}
                             </p>
                         </div>
                     </div>
@@ -102,8 +101,8 @@ export function InvoiceDetailsModal({ isOpen, onClose, invoice }: InvoiceDetails
                                                     <span className="text-xs font-bold text-white">{item.description}</span>
                                                 </td>
                                                 <td className="px-4 py-3 text-center text-xs">{item.quantity}</td>
-                                                <td className="px-4 py-3 text-right text-xs">$ {parseFloat(item.unit_price).toLocaleString()}</td>
-                                                <td className="px-4 py-3 text-right font-bold text-white">$ {parseFloat(item.subtotal).toLocaleString()}</td>
+                                                <td className="px-4 py-3 text-right text-xs">RD$ {parseFloat(item.unit_price).toLocaleString()}</td>
+                                                <td className="px-4 py-3 text-right font-bold text-white">RD$ {parseFloat(item.subtotal).toLocaleString()}</td>
                                             </tr>
                                         ))}
                                     </tbody>
@@ -154,7 +153,7 @@ export function InvoiceDetailsModal({ isOpen, onClose, invoice }: InvoiceDetails
                                                     </div>
                                                 </td>
                                                 <td className="px-4 py-3 font-mono text-xs">{payment.reference_number || '-'}</td>
-                                                <td className="px-4 py-3 text-right font-bold text-emerald-400">$ {parseFloat(payment.amount).toLocaleString()}</td>
+                                                <td className="px-4 py-3 text-right font-bold text-emerald-400">RD$ {parseFloat(payment.amount).toLocaleString()}</td>
                                             </tr>
                                         ))}
                                     </tbody>

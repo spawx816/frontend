@@ -83,7 +83,7 @@ export function BillingDashboard() {
                                     <Clock className="w-5 h-5" />
                                 </div>
                             </div>
-                            <div className="text-2xl font-bold text-white">$ {pendingTotal.toLocaleString()}</div>
+                            <div className="text-2xl font-bold text-white">RD$ {pendingTotal.toLocaleString()}</div>
                         </div>
 
                         <div className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800 backdrop-blur-sm">
@@ -93,7 +93,7 @@ export function BillingDashboard() {
                                     <CheckCircle className="w-5 h-5" />
                                 </div>
                             </div>
-                            <div className="text-2xl font-bold text-white">$ {collectedTotal.toLocaleString()}</div>
+                            <div className="text-2xl font-bold text-white">RD$ {collectedTotal.toLocaleString()}</div>
                         </div>
 
                         <div className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800 backdrop-blur-sm">
@@ -201,10 +201,9 @@ export function BillingDashboard() {
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-4 text-xs">{new Date(invoice.created_at).toLocaleDateString()}</td>
-                                                <td className="px-6 py-4 text-white font-bold text-right">$ {parseFloat(invoice.total_amount).toLocaleString()}</td>
-                                                <td className="px-6 py-4 text-emerald-400 font-bold text-right">$ {parseFloat(invoice.paid_amount).toLocaleString()}</td>
-                                                <td className={`px-6 py-4 font-bold text-right ${remaining > 0 ? 'text-amber-400' : 'text-slate-500'}`}>
-                                                    $ {remaining.toLocaleString()}
+                                                <td className="px-6 py-4 text-white font-bold text-right">RD$ {parseFloat(invoice.total_amount).toLocaleString()}</td>
+                                                <td className="px-6 py-4 text-emerald-400 font-bold text-right">RD$ {parseFloat(invoice.paid_amount).toLocaleString()}</td>
+                                                <td className={`px-6 py-4 font-bold text-right ${remaining > 0 ? 'text-amber-400' : 'text-slate-500'}`}>RD$ {remaining.toLocaleString()}
                                                 </td>
                                                 <td className="px-6 py-4 text-center">
                                                     <span className={`px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-widest border ${invoice.status === 'PAID'
@@ -316,7 +315,7 @@ export function BillingDashboard() {
                                     <tr key={item.id} className="hover:bg-slate-800/30 transition-colors group">
                                         <td className="px-6 py-4 text-white font-bold">{item.name}</td>
                                         <td className="px-6 py-4 text-xs italic text-slate-500">{item.description || 'Sin descripción'}</td>
-                                        <td className="px-6 py-4 text-white font-bold text-right">$ {parseFloat(item.price).toLocaleString()}</td>
+                                        <td className="px-6 py-4 text-white font-bold text-right">RD$ {parseFloat(item.price).toLocaleString()}</td>
                                     </tr>
                                 ))}
                             </tbody>

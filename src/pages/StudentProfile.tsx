@@ -145,16 +145,15 @@ export function StudentProfile({ studentId, onBack }: StudentProfileProps) {
                                 <div className="space-y-4">
                                     <div>
                                         <p className="text-slate-600 text-[9px] uppercase font-black tracking-widest mb-1">Total Facturado</p>
-                                        <p className="text-2xl font-bold text-white">${totalInvoiced.toLocaleString()}</p>
+                                        <p className="text-2xl font-bold text-white">RD${totalInvoiced.toLocaleString()}</p>
                                     </div>
                                     <div>
                                         <p className="text-slate-600 text-[9px] uppercase font-black tracking-widest mb-1">Monto Pagado</p>
-                                        <p className="text-2xl font-bold text-emerald-400">${totalPaid.toLocaleString()}</p>
+                                        <p className="text-2xl font-bold text-emerald-400">RD${totalPaid.toLocaleString()}</p>
                                     </div>
                                     <div className="pt-4 border-t border-slate-800">
                                         <p className="text-slate-600 text-[9px] uppercase font-black tracking-widest mb-1">Saldo Pendiente</p>
-                                        <p className={`text-3xl font-black ${balance > 0 ? 'text-amber-500' : 'text-slate-300'}`}>
-                                            ${balance.toLocaleString()}
+                                        <p className={`text-3xl font-black ${balance > 0 ? 'text-amber-500' : 'text-slate-300'}`}>RD${balance.toLocaleString()}
                                         </p>
                                     </div>
                                 </div>
@@ -271,7 +270,7 @@ export function StudentProfile({ studentId, onBack }: StudentProfileProps) {
                                                     <tr key={invoice.id} className="hover:bg-slate-800/30 transition-colors group">
                                                         <td className="px-6 py-4 font-mono text-xs text-white group-hover:text-blue-400 transition-colors uppercase">{invoice.invoice_number}</td>
                                                         <td className="px-6 py-4 text-xs text-slate-500">{new Date(invoice.issue_date).toLocaleDateString()}</td>
-                                                        <td className="px-6 py-4 text-right text-sm font-black group-hover:text-white transition-colors">${parseFloat(invoice.total_amount).toLocaleString()}</td>
+                                                        <td className="px-6 py-4 text-right text-sm font-black group-hover:text-white transition-colors">RD${parseFloat(invoice.total_amount).toLocaleString()}</td>
                                                         <td className="px-6 py-4">
                                                             <span className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest ${invoice.status === 'PAID' ? 'bg-emerald-900/20 text-emerald-400 border border-emerald-800/50' :
                                                                 invoice.status === 'OVERDUE' ? 'bg-rose-900/20 text-rose-400 border border-rose-800/50' :

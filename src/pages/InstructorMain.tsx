@@ -162,8 +162,7 @@ function InstructorPaymentsView({ teacherId }: { teacherId: string }) {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="bg-slate-900/50 border border-slate-800 p-8 rounded-[2.5rem] backdrop-blur-sm">
                     <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Total Recibido</p>
-                    <p className="text-3xl font-black text-white tracking-tighter">
-                        ${(Array.isArray(payments) ? payments : []).reduce((sum: number, p: any) => sum + parseFloat(p.amount), 0).toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                    <p className="text-3xl font-black text-white tracking-tighter">RD${(Array.isArray(payments) ? payments : []).reduce((sum: number, p: any) => sum + parseFloat(p.amount), 0).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </p>
                 </div>
             </div>
@@ -199,8 +198,7 @@ function InstructorPaymentsView({ teacherId }: { teacherId: string }) {
                                         </div>
                                     </td>
                                     <td className="px-8 py-6 text-right">
-                                        <span className="text-lg font-black text-emerald-400 tracking-tighter">
-                                            ${parseFloat(payment.amount).toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                                        <span className="text-lg font-black text-emerald-400 tracking-tighter">RD${parseFloat(payment.amount).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                                         </span>
                                     </td>
                                 </tr>

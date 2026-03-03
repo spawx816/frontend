@@ -183,7 +183,7 @@ export function ModulePricingManager({ programId }: { programId: string }) {
                                     <div key={addon.id} className="flex items-center justify-between p-4 bg-slate-950/50 border border-slate-800/50 rounded-2xl group transition-all hover:bg-slate-950/80">
                                         <div>
                                             <p className="text-sm font-bold text-white">{addon.name}</p>
-                                            <p className="text-[10px] text-emerald-500 font-black tracking-tighter">${addon.price}</p>
+                                            <p className="text-[10px] text-emerald-500 font-black tracking-tighter">RD${addon.price}</p>
                                         </div>
                                         <button
                                             onClick={() => removeAddon.mutate({ moduleId: selectedModuleId, itemId: addon.id })}

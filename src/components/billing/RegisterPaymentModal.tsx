@@ -47,7 +47,7 @@ export function RegisterPaymentModal({ isOpen, onClose, invoice }: { isOpen: boo
                     <div className="bg-blue-600/5 border border-blue-500/20 rounded-2xl p-4 flex items-center justify-between">
                         <div>
                             <p className="text-[10px] font-bold text-blue-500 uppercase tracking-widest mb-1">Saldo Pendiente</p>
-                            <p className="text-2xl font-black text-white">$ {remaining.toLocaleString()}</p>
+                            <p className="text-2xl font-black text-white">RD$ {remaining.toLocaleString()}</p>
                         </div>
                         <div className="p-3 bg-blue-600/10 rounded-xl">
                             <DollarSign className="w-6 h-6 text-blue-500" />

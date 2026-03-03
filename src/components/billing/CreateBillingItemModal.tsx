@@ -63,7 +63,7 @@ export function CreateBillingItemModal({ isOpen, onClose }: { isOpen: boolean; o
                         <div>
                             <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Precio Base</label>
                             <div className="relative">
-                                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 font-bold">$</span>
+                                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 font-bold">RD$</span>
                                 <input
                                     type="number"
                                     step="0.01"

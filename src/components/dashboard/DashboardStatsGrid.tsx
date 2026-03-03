@@ -15,28 +15,28 @@ export function DashboardStatsGrid({ summary }: StatsProps) {
     const cards = [
         {
             title: 'Ingresos (30d)',
-            value: `$${summary.revenue30d.toLocaleString()}`,
+            value: `RD$${summary.revenue30d.toLocaleString()}`,
             icon: CircleDollarSign,
             color: 'bg-emerald-500/10 text-emerald-500',
             label: 'Pagos recibidos'
         },
         {
             title: 'Egresos (30d)',
-            value: `$${summary.totalExpenses.toLocaleString()}`,
+            value: `RD$${summary.totalExpenses.toLocaleString()}`,
             icon: TrendingUp,
             color: 'bg-rose-500/10 text-rose-500',
             label: 'Gastos + Nómina'
         },
         {
             title: 'Utilidad Neta',
-            value: `$${summary.netProfit.toLocaleString()}`,
+            value: `RD$${summary.netProfit.toLocaleString()}`,
             icon: Target,
             color: summary.netProfit >= 0 ? 'bg-blue-500/10 text-blue-500' : 'bg-red-500/10 text-red-500',
             label: 'Ganancia real'
         },
         {
             title: 'Cartera Pendiente',
-            value: `$${summary.pendingRevenue.toLocaleString()}`,
+            value: `RD$${summary.pendingRevenue.toLocaleString()}`,
             icon: TrendingUp,
             color: 'bg-amber-500/10 text-amber-500',
             label: 'Por cobrar'

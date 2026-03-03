@@ -5,6 +5,13 @@ import { Wallet, Plus, Loader2, ArrowLeft, Hash, Download } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import apiClient from '../../lib/api-client.ts';
 
+const PAYMENT_METHODS: Record<string, string> = {
+    'TRANSFER': 'Transferencia',
+    'CASH': 'Efectivo',
+    'CARD': 'Tarjeta',
+    'CHECK': 'Cheque'
+};
+
 export function InstructorPayrollManager() {
     const { data: instructors } = useInstructors();
     const { data: payments, isLoading } = useInstructorPayments();
@@ -24,8 +31,12 @@ export function InstructorPayrollManager() {
         e.preventDefault();
         try {
             await registerPayment.mutateAsync({
-                ...formData,
-                amount: parseFloat(formData.amount)
+                teacherId: formData.teacherId,
+                amount: parseFloat(formData.amount),
+                paymentMethod: formData.method,
+                referenceNumber: formData.reference,
+                notes: formData.notes,
+                date: formData.date
             });
             toast.success('Pago registrado correctamente');
             setIsAdding(false);
@@ -139,14 +150,14 @@ export function InstructorPayrollManager() {
                         <div className="space-y-2">
                             <label className="text-[10px] uppercase font-black text-slate-500 tracking-widest pl-1">Método</label>
                             <select
+                                required
                                 value={formData.method}
                                 onChange={e => setFormData({ ...formData, method: e.target.value })}
                                 className="w-full bg-slate-950 border border-slate-800 rounded-2xl px-4 py-4 text-white text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all"
                             >
-                                <option value="TRANSFER">Transferencia</option>
-                                <option value="CASH">Efectivo</option>
-                                <option value="STRIPE">Stripe / Online</option>
-                                <option value="CHECK">Cheque</option>
+                                {Object.entries(PAYMENT_METHODS).map(([value, label]) => (
+                                    <option key={value} value={value}>{label}</option>
+                                ))}
                             </select>
                         </div>
 
@@ -218,7 +229,7 @@ export function InstructorPayrollManager() {
                                 </td>
                                 <td className="px-8 py-6">
                                     <span className="px-3 py-1 bg-slate-800 text-slate-400 text-[10px] font-black uppercase tracking-widest rounded-lg border border-slate-700">
-                                        {payment.payment_method}
+                                        {PAYMENT_METHODS[payment.payment_method] || payment.payment_method || 'N/A'}
                                     </span>
                                 </td>
                                 <td className="px-8 py-6">
@@ -228,8 +239,7 @@ export function InstructorPayrollManager() {
                                     </div>
                                 </td>
                                 <td className="px-8 py-6 text-right">
-                                    <span className="text-lg font-black text-emerald-400 tracking-tighter">
-                                        ${parseFloat(payment.amount).toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                                    <span className="text-lg font-black text-emerald-400 tracking-tighter">RD${parseFloat(payment.amount).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                                     </span>
                                 </td>
                                 <td className="px-8 py-6 text-right">

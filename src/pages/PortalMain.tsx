@@ -140,7 +140,7 @@ export function PortalMain() {
                                         <Receipt className="w-3 h-3 mr-2" />
                                         Balance Pendiente
                                     </p>
-                                    <h3 className="text-4xl font-black text-white tracking-tighter">${totalPending.toLocaleString()}</h3>
+                                    <h3 className="text-4xl font-black text-white tracking-tighter">RD${totalPending.toLocaleString()}</h3>
                                     <div className={`mt-3 text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-lg inline-block ${totalPending > 0 ? 'bg-rose-500/20 text-rose-300' : 'bg-emerald-500/20 text-emerald-300'}`}>
                                         {pendingInvoices.length} Factura{pendingInvoices.length !== 1 ? 's' : ''} Por Pagar
                                     </div>
@@ -262,7 +262,7 @@ export function PortalMain() {
                                                 </div>
                                                 <div className="flex items-end justify-between pl-2">
                                                     <div>
-                                                        <p className="text-2xl font-black text-white tracking-tight">${Number(invoice.total_amount).toLocaleString()}</p>
+                                                        <p className="text-2xl font-black text-white tracking-tight">RD${Number(invoice.total_amount).toLocaleString()}</p>
                                                         <p className="text-[9px] text-slate-600 font-bold uppercase tracking-widest mt-1"><span className="text-slate-500">Vence:</span> {new Date(invoice.due_date || invoice.created_at).toLocaleDateString()}</p>
                                                     </div>
                                                     <button
@@ -323,7 +323,7 @@ export function PortalMain() {
                                             <p className="text-[10px] text-slate-500 font-bold mt-1">Cantidad: {item.quantity}</p>
                                         </div>
                                         <div className="text-right">
-                                            <p className="text-sm font-black text-white">${Number(item.unit_price * item.quantity).toLocaleString()}</p>
+                                            <p className="text-sm font-black text-white">RD${Number(item.unit_price * item.quantity).toLocaleString()}</p>
                                             <p className="text-[9px] text-slate-600 font-bold">Unidad: ${Number(item.unit_price).toLocaleString()}</p>
                                         </div>
                                     </div>
@@ -342,7 +342,7 @@ export function PortalMain() {
                                 </div>
                                 <div className="text-right">
                                     <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Total Facturado</p>
-                                    <p className="text-3xl font-black text-white">${Number(selectedInvoice.total_amount).toLocaleString()}</p>
+                                    <p className="text-3xl font-black text-white">RD${Number(selectedInvoice.total_amount).toLocaleString()}</p>
                                 </div>
                             </div>
 

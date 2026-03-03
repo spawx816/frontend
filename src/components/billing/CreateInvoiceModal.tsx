@@ -228,7 +228,7 @@ export function CreateInvoiceModal({ isOpen, onClose }: { isOpen: boolean; onClo
                                         }`}>
                                         <Ticket className="w-3 h-3 text-indigo-400" />
                                         <span>{suggestions.enrollmentFee.name}: </span>
-                                        <span className="font-bold text-indigo-300">${parseFloat(suggestions.enrollmentFee.price).toLocaleString()}</span>
+                                        <span className="font-bold text-indigo-300">RD${parseFloat(suggestions.enrollmentFee.price).toLocaleString()}</span>
                                         {suggestions.enrollmentFee.discount > 0 && (
                                             <span className="text-[10px] text-emerald-400 font-black ml-1">(-${parseFloat(suggestions.enrollmentFee.discount).toLocaleString()})</span>
                                         )}
@@ -241,7 +241,7 @@ export function CreateInvoiceModal({ isOpen, onClose }: { isOpen: boolean; onClo
                                         }`}>
                                         <Check className="w-3 h-3 text-emerald-500" />
                                         <span>{suggestions.suggestedModule.name}: </span>
-                                        <span className="font-bold text-emerald-400">${parseFloat(suggestions.suggestedModule.price).toLocaleString()}</span>
+                                        <span className="font-bold text-emerald-400">RD${parseFloat(suggestions.suggestedModule.price).toLocaleString()}</span>
                                         {suggestions.suggestedModule.discount > 0 && (
                                             <span className="text-[10px] text-emerald-400 font-black ml-1">(-${parseFloat(suggestions.suggestedModule.discount).toLocaleString()})</span>
                                         )}
@@ -260,7 +260,7 @@ export function CreateInvoiceModal({ isOpen, onClose }: { isOpen: boolean; onClo
                                         } ${addon.is_inventory && addon.stock_quantity <= 0 ? 'opacity-40 grayscale' : ''}`}>
                                         <Plus className="w-3 h-3 text-indigo-500" />
                                         <span>{addon.name}: </span>
-                                        <span className="font-bold text-indigo-400">${parseFloat(addon.price).toLocaleString()}</span>
+                                        <span className="font-bold text-indigo-400">RD${parseFloat(addon.price).toLocaleString()}</span>
                                         {addon.is_inventory && (
                                             <span className={`ml-1 px-1.5 py-0.5 rounded text-[8px] font-black uppercase ${addon.stock_quantity <= addon.min_stock ? 'bg-amber-500/20 text-amber-500' : 'bg-slate-800 text-slate-400'
                                                 }`}>
@@ -299,7 +299,7 @@ export function CreateInvoiceModal({ isOpen, onClose }: { isOpen: boolean; onClo
                                             </div>
                                         </div>
                                         <div className="text-right relative z-10">
-                                            <p className="font-black text-blue-400 text-sm">${parseFloat(item.price).toLocaleString()}</p>
+                                            <p className="font-black text-blue-400 text-sm">RD${parseFloat(item.price).toLocaleString()}</p>
                                             <Plus className="w-4 h-4 text-slate-600 group-hover:text-blue-500 ml-auto mt-1" />
                                         </div>
                                         {item.is_inventory && item.stock_quantity <= 0 && (
@@ -334,7 +334,7 @@ export function CreateInvoiceModal({ isOpen, onClose }: { isOpen: boolean; onClo
                                                 </div>
                                             </div>
                                             <div className="flex items-center space-x-4">
-                                                <p className="font-black text-white text-sm">${(item.quantity * item.unitPrice).toLocaleString()}</p>
+                                                <p className="font-black text-white text-sm">RD${(item.quantity * item.unitPrice).toLocaleString()}</p>
                                                 <button
                                                     type="button"
                                                     onClick={() => handleRemoveItem(index)}
@@ -366,7 +366,7 @@ export function CreateInvoiceModal({ isOpen, onClose }: { isOpen: boolean; onClo
                     <div className="flex space-x-8">
                         <div className="text-right">
                             <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Subtotal</p>
-                            <p className="text-lg font-bold text-slate-400 mt-1">${subtotal.toLocaleString()}</p>
+                            <p className="text-lg font-bold text-slate-400 mt-1">RD${subtotal.toLocaleString()}</p>
                         </div>
                         {totalDiscount > 0 && (
                             <div className="text-right">
@@ -376,7 +376,7 @@ export function CreateInvoiceModal({ isOpen, onClose }: { isOpen: boolean; onClo
                         )}
                         <div className="text-right">
                             <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Monto Total</p>
-                            <p className="text-3xl font-black text-white tracking-tighter mt-1">${total.toLocaleString()}</p>
+                            <p className="text-3xl font-black text-white tracking-tighter mt-1">RD${total.toLocaleString()}</p>
                         </div>
                     </div>
                     <div className="flex space-x-4">
