@@ -19,6 +19,9 @@ export function PublicLeadForm() {
         lastName: '',
         email: '',
         phone: '',
+        documentType: 'CEDULA',
+        documentId: '',
+        address: '',
     });
 
     const source = searchParams.get('source') || 'WEB_PUBLIC';
@@ -149,14 +152,50 @@ export function PublicLeadForm() {
                             </div>
 
                             <div className="space-y-2">
-                                <label className="text-[10px] uppercase font-black text-slate-500 tracking-widest pl-1">Teléfono / WhatsApp</label>
+                                <label className="text-[10px] uppercase font-black text-slate-500 tracking-widest pl-1">WhatsApp / Teléfono</label>
                                 <input
                                     required
                                     type="tel"
                                     value={formData.phone}
                                     onChange={e => setFormData({ ...formData, phone: e.target.value })}
-                                    className="w-full bg-slate-900 border border-slate-800 rounded-2xl px-4 py-3 text-white text-sm outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all"
+                                    className="w-full bg-slate-900 border border-slate-800 rounded-2xl px-4 py-3 text-white text-sm outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all shadow-inner"
                                     placeholder="+1 234 567 890"
+                                />
+                            </div>
+
+                            <div className="grid grid-cols-3 gap-3">
+                                <div className="space-y-2">
+                                    <label className="text-[10px] uppercase font-black text-slate-500 tracking-widest pl-1">Tipo</label>
+                                    <select
+                                        value={formData.documentType}
+                                        onChange={e => setFormData({ ...formData, documentType: e.target.value })}
+                                        className="w-full bg-slate-900 border border-slate-800 rounded-2xl px-3 py-3 text-white text-xs outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all appearance-none cursor-pointer shadow-inner"
+                                    >
+                                        <option value="CEDULA">Cédula</option>
+                                        <option value="PASAPORTE">Passport</option>
+                                    </select>
+                                </div>
+                                <div className="col-span-2 space-y-2">
+                                    <label className="text-[10px] uppercase font-black text-slate-500 tracking-widest pl-1">Número de Identidad</label>
+                                    <input
+                                        required
+                                        type="text"
+                                        value={formData.documentId}
+                                        onChange={e => setFormData({ ...formData, documentId: e.target.value })}
+                                        className="w-full bg-slate-900 border border-slate-800 rounded-2xl px-4 py-3 text-white text-sm outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all shadow-inner"
+                                        placeholder="000-0000000-0"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="space-y-2">
+                                <label className="text-[10px] uppercase font-black text-slate-500 tracking-widest pl-1">Dirección Residencial</label>
+                                <textarea
+                                    rows={2}
+                                    value={formData.address}
+                                    onChange={e => setFormData({ ...formData, address: e.target.value })}
+                                    className="w-full bg-slate-900 border border-slate-800 rounded-2xl px-4 py-3 text-white text-sm outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all shadow-inner resize-none"
+                                    placeholder="Calle, Número, Sector..."
                                 />
                             </div>
 
